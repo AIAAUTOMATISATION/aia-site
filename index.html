@@ -39,6 +39,7 @@
             color: #a1a1aa;
         }
 
+        /* CARTES DE LA FRISE */
         .step-card {
             position: relative; padding: 30px 20px; background: rgba(255, 255, 255, 0.02);
             border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
@@ -46,17 +47,31 @@
         }
         @media (min-width: 1024px) { .step-card { padding: 40px; } }
 
+        /* LETTRE EN ARRIÈRE-PLAN (MODIFIÉ POUR LE COLORÉ AU SURVOL) */
         .step-bg-text {
             position: absolute; right: -5px; bottom: -10px; font-size: 80px; font-weight: 900;
-            color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03); transition: all 0.8s ease;
+            color: transparent; 
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03); 
+            transition: all 0.8s ease;
+            z-index: 0;
         }
-        .step-card:hover .step-bg-text { -webkit-text-stroke: 1px rgba(122, 63, 242, 0.15); transform: translateY(-10px); }
+        
+        /* EFFET COLORÉ AU SURVOL DE LA CARTE */
+        .step-card:hover .step-bg-text { 
+            -webkit-text-stroke: 0px transparent;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.25; /* Transparence pour ne pas gêner le texte de devant */
+            transform: translateY(-10px) scale(1.05);
+        }
         
         .step-indicator {
             position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
             background: var(--grad); transform: scaleY(0); transition: transform 0.4s ease; transform-origin: bottom;
         }
         .step-card:hover .step-indicator { transform: scaleY(1); }
+        
         .step-title { font-size: 1.5rem; md:text-2xl; font-weight: 900; color: white; transition: 0.3s; }
         .step-card:hover .step-title { color: #00B8D9; }
 
@@ -110,7 +125,7 @@
                 Déployer mon agent
             </a>
             <p class="text-xs md:text-sm text-zinc-500 italic">
-                L'agent scannera votre écosystème en 60 secondes.
+                L'agent IA scannera votre écosystème en 60 secondes.
             </p>
         </div>
     </section>
@@ -120,21 +135,21 @@
             <div class="step-card">
                 <div class="step-indicator"></div>
                 <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">01. Audit</div>
-                <h3 class="step-title mb-6 uppercase italic">Analyser</h3>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Analyser</h3>
                 <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Identification des goulots d'étranglement et de votre potentiel réel de croissance automatisée.</p>
                 <div class="step-bg-text">A</div>
             </div>
             <div class="step-card">
                 <div class="step-indicator"></div>
                 <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">02. Setup</div>
-                <h3 class="step-title mb-6 uppercase italic">Implémenter</h3>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Implémenter</h3>
                 <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Construction de votre architecture sur-mesure. Vous restez propriétaire de 100% de vos outils.</p>
                 <div class="step-bg-text">I</div>
             </div>
             <div class="step-card">
                 <div class="step-indicator"></div>
                 <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">03. Scale</div>
-                <h3 class="step-title mb-6 uppercase italic">Automatiser</h3>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Automatiser</h3>
                 <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Le système prend le relais. Votre charge mentale diminue pendant que votre rentabilité explose.</p>
                 <div class="step-bg-text">A</div>
             </div>

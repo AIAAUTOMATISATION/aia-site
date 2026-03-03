@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIA Automatisation | Architectes Système & Business</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
+        .gradient-text { background: linear-gradient(90deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="text-gray-300 antialiased">
+
+    <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+        <div class="text-white font-bold text-xl tracking-tighter">aia-automatisation<span class="text-blue-500">.fr</span></div>
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest mono">
+            <a href="#vision" class="hover:text-white transition">Vision 2026</a>
+            <a href="#stack" class="hover:text-white transition">Stack</a>
+            <a href="#audit" class="px-4 py-2 bg-white text-black font-bold rounded-sm hover:bg-blue-500 hover:text-white transition border-none cursor-pointer">Lancer l'Audit</a>
+        </div>
+    </nav>
+
+    <section class="max-w-5xl mx-auto px-8 py-24 text-center">
+        <div class="inline-block px-3 py-1 border border-blue-500/30 text-blue-400 text-xs mono mb-6 uppercase tracking-widest">
+            Souveraineté Numérique & Performance
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
+            Ne subissez plus votre infrastructure. <br>
+            <span class="gradient-text">Possédez-la.</span>
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
+            Nous bâtissons des systèmes d'automatisation sur-mesure (n8n, Vercel, API dédiées) qui transforment vos centres de coûts en leviers de profit. 100% Souverain.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="#audit" class="px-8 py-4 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-900/20">
+                Estimer mon ROI en 2 minutes
+            </a>
+            <a href="#vision" class="px-8 py-4 glass text-white font-bold rounded-lg hover:bg-white/5 transition">
+                La Vision 2026
+            </a>
+        </div>
+    </section>
+
+    <section id="audit" class="max-w-4xl mx-auto px-8 py-24">
+        <div class="glass p-8 md:p-12 rounded-2xl border-blue-500/20 shadow-2xl">
+            <h2 class="text-3xl font-bold text-white mb-2">Simulateur de Valeur Business</h2>
+            <p class="text-gray-500 mb-10 mono text-sm uppercase tracking-widest text-blue-400">// Diagnostic de performance opérationnelle</p>
+            
+            <form id="roiForm" class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-400 mb-3 uppercase mono">Profil</label>
+                        <select id="profil" class="w-full bg-black/50 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-blue-500 text-white appearance-none">
+                            <option>Freelance / Indépendant</option>
+                            <option>PME / Équipe (2-20)</option>
+                            <option>Grande Structure (+20)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-400 mb-3 uppercase mono">Fréquence (hebdomadaire)</label>
+                        <input type="number" id="volume" placeholder="Ex: 50" required class="w-full bg-black/50 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-blue-500 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-400 mb-3 uppercase mono">Minutes par tâche</label>
+                        <input type="number" id="temps" placeholder="Ex: 15" required class="w-full bg-black/50 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-blue-500 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-400 mb-3 uppercase mono">Coût horaire (TJM / Salaire)</label>
+                        <input type="number" id="cout" placeholder="Ex: 60" required class="w-full bg-black/50 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-blue-500 text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-400 mb-3 uppercase mono">Objectif : Si cette tâche disparaissait demain ?</label>
+                    <textarea id="vision_text" placeholder="Ex: Lancer une nouvelle offre, doubler le prospection..." required class="w-full bg-black/50 border border-white/10 p-4 rounded-lg focus:outline-none focus:border-blue-500 text-white h-32"></textarea>
+                </div>
+                <button type="submit" class="w-full py-5 bg-white text-black font-black uppercase tracking-tighter hover:bg-blue-500 hover:text-white transition rounded-lg cursor-pointer">
+                    Calculer le gain annuel estimé
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section id="vision" class="max-w-7xl mx-auto px-8 py-24 border-t border-white/5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-4xl font-bold text-white mb-8 tracking-tight">L'Entreprise en 2026 : <br><span class="text-blue-500 font-light italic">L'orchestration ou le déclin.</span></h2>
+                <div class="space-y-6 text-lg text-gray-400 leading-relaxed">
+                    <p>En 2026, la rentabilité se joue sur l'orchestration. Une entreprise qui délègue des tâches répétitives à des humains n'est pas "humaine", elle est inefficace.</p>
+                    <p>Chez <span class="text-white">aia-automatisation.fr</span>, nous prônons la <strong>Souveraineté Numérique</strong>. Nous n'installons pas de "gadgets" SaaS. Nous déployons votre propriété intellectuelle technique.</p>
+                </div>
+                <ul class="mt-8 space-y-4 mono text-sm text-blue-400">
+                    <li>[✓] Zéro Lock-in : Votre code, votre n8n, votre serveur.</li>
+                    <li>[✓] Scalabilité : Traitez 10 ou 10 000 dossiers sans recruter.</li>
+                    <li>[✓] Valorisation : Une boîte automatisée vaut +30% à la revente.</li>
+                </ul>
+            </div>
+            <div id="stack" class="glass p-8 rounded-2xl">
+                <h3 class="text-white font-bold mb-6 mono uppercase text-xs tracking-widest border-b border-white/10 pb-4">La Stack "Boîte de Verre"</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-lg">
+                        <span class="text-white font-semibold">n8n</span>
+                        <span class="text-gray-500 text-sm">Le Cerveau (Orchestrateur)</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-lg">
+                        <span class="text-white font-semibold">Airtable</span>
+                        <span class="text-gray-500 text-sm">La Mémoire (Data)</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-lg">
+                        <span class="text-white font-semibold">Resend</span>
+                        <span class="text-gray-500 text-sm">La Voix (Emails API)</span>
+                    </div>
+                    <div class="flex justify-between items-center p-4 bg-white/5 rounded-lg">
+                        <span class="text-white font-semibold">Vercel</span>
+                        <span class="text-gray-500 text-sm">L'Interface (UI)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-20 border-t border-white/5">
+        <p class="mono text-xs uppercase tracking-widest text-gray-600 mb-4">© 2026 AIA-AUTOMATISATION.FR - Architectes de Systèmes Business</p>
+        <div class="text-white/20 hover:text-blue-500 transition cursor-pointer font-bold">CONTACT@AIA-AUTOMATISATION.FR</div>
+    </footer>
+
+    <script>
+        document.getElementById('roiForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // 1. Récupération des données du formulaire
+            const data = {
+                profil: document.getElementById('profil').value,
+                volume: parseFloat(document.getElementById('volume').value) || 0,
+                temps: parseFloat(document.getElementById('temps').value) || 0,
+                cout: parseFloat(document.getElementById('cout').value) || 0,
+                vision: document.getElementById('vision_text').value
+            };
+            
+            // 2. Calcul local pour l'affichage (immédiat)
+            const heuresAnnuelles = (data.temps / 60) * data.volume * 52;
+            const gainAnnuels = Math.round(heuresAnnuelles * data.cout);
+            
+            // 3. ENVOI VERS n8n (Remplace l'URL ci-dessous par ton URL Webhook de Test)
+            const webhookURL = 'https://outil-aia-automatisation.app.n8n.cloud/webhook/simulation-roi';
+            
+            try {
+                // On envoie les données en arrière-plan
+                fetch(webhookURL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } catch (error) {
+                console.error("Erreur n8n:", error);
+            }
+
+            // 4. Interface de résultat (Effet visuel)
+            this.innerHTML = `
+                <div class="text-center py-10 animate-fade-in">
+                    <h3 class="text-blue-400 mono mb-4 tracking-widest">DIAGNOSTIC TERMINÉ</h3>
+                    <div class="text-6xl font-black text-white mb-4">${gainAnnuels.toLocaleString()} €</div>
+                    <p class="text-gray-400 mb-8 max-w-md mx-auto italic underline decoration-blue-500/50">
+                        C'est le coût annuel de votre inefficacité. Notre système a reçu votre analyse et prépare votre plan de souveraineté.
+                    </p>
+                    <button onclick="window.location.reload()" class="text-xs text-gray-600 underline mono uppercase hover:text-white transition">Refaire un audit</button>
+                </div>
+            `;
+        });
+    </script>
+
+</body>
+</html>

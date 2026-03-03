@@ -3,173 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIA Automatisation | Architectes Système</title>
+    <title>AIA | Libérez votre temps. Sécurisez votre croissance.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --grad: linear-gradient(135deg, #2E6CF6 0%, #00B8D9 30%, #7A3FF2 70%, #D81B88 100%);
+        }
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #050505; 
             color: #a1a1aa; 
-            scroll-behavior: smooth; 
             overflow-x: hidden;
-            position: relative;
+            scroll-behavior: smooth;
         }
-
-        /* Effet de quadrillage (Grid) */
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Halo lumineux suivant la souris */
-        #mouse-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: -1;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
-        }
-
         .mono { font-family: 'JetBrains Mono', monospace; }
-        .glass { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
-        .gradient-text { background: linear-gradient(180deg, #fff 0%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn-glow:hover { box-shadow: 0 0 25px rgba(37, 99, 235, 0.4); transform: translateY(-2px); }
+        .text-gradient { 
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-grad {
+            background: var(--grad);
+            background-size: 200% auto;
+            transition: 0.5s;
+            color: white;
+            border-radius: 99px;
+            font-weight: 800;
+        }
+        .btn-grad:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(46, 108, 246, 0.3);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(46, 108, 246, 0.12) 0%, transparent 70%);
+            z-index: -1;
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+        }
+        .ai-pulse {
+            width: 12px; height: 12px;
+            background: #00B8D9;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #00B8D9;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        .typing { border-right: 2px solid #00B8D9; white-space: nowrap; overflow: hidden; animation: type 2s steps(40, end); }
+        @keyframes type { from { width: 0 } to { width: 100% } }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="grid-bg"></div>
-    <div id="mouse-glow"></div>
-
-    <nav class="flex justify-between items-center px-6 py-6 max-w-7xl mx-auto border-b border-white/5 relative z-10">
-        <div class="text-white font-extrabold text-xl tracking-tighter">aia-automatisation<span class="text-blue-500">.fr</span></div>
-        <div class="hidden md:flex items-center space-x-8 text-[10px] uppercase tracking-[0.2em] mono">
-            <a href="#audit" class="px-5 py-2 bg-white text-black font-bold rounded-full hover:bg-blue-600 hover:text-white transition cursor-pointer">Lancer l'Audit</a>
+    <nav class="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto relative z-10">
+        <img src="https://i.ibb.co/v4m8fXN/LOGO-AIA-complet.png" alt="AIA Logo" class="h-10 md:h-12 object-contain">
+        <div class="hidden md:flex gap-6 items-center">
+            <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 italic">Disponibilité : 2 projets / mois</span>
         </div>
     </nav>
 
-    <section class="max-w-6xl mx-auto px-6 py-24 text-center relative z-10">
-        <div class="inline-block px-4 py-1.5 border border-blue-500/20 bg-blue-500/5 text-blue-400 text-[10px] mono mb-8 uppercase tracking-[0.3em] rounded-full">
-            Souveraineté Numérique & Performance
+    <section class="relative max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
+        <div class="hero-glow"></div>
+        <div class="inline-block px-4 py-1.5 border border-white/10 bg-white/5 text-white/60 text-[10px] mono mb-8 uppercase tracking-[0.3em] rounded-full">
+            Indépendants • TPE • Freelances
         </div>
-        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8 tracking-tight leading-[1.1]">
-            Architectes de<br>
-            <span class="gradient-text">Systèmes Business.</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 leading-[1.1] text-white">
+            Éliminez vos tâches répétitives.<br>
+            <span class="text-gradient">Reprenez le contrôle de votre temps.</span>
         </h1>
-        <p class="text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Évaluez l'impact financier de l'automatisation sur votre structure en moins de 60 secondes.
+        <p class="text-lg text-zinc-500 max-w-3xl mx-auto mb-12 leading-relaxed">
+            Nous bâtissons des systèmes intelligents qui travaillent pour vous 24/7. <br class="hidden md:block">
+            <span class="text-zinc-300">Moins de charge mentale. Plus de résultats. Propriété totale de vos outils.</span>
         </p>
+        <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+            <a href="#audit" class="btn-grad px-12 py-5 text-lg shadow-2xl">Lancer mon Audit IA</a>
+        </div>
     </section>
 
-    <section id="audit" class="max-w-4xl mx-auto px-6 py-12">
-        <div id="formContainer" class="glass p-8 md:p-12 rounded-[2.5rem] shadow-2xl transition-all duration-500">
-            <div id="step1">
-                <div class="mb-10 text-center md:text-left">
-                    <h2 class="text-3xl font-bold text-white mb-2 italic">Analyse de Flux</h2>
-                    <p class="text-blue-500 mono text-[10px] uppercase tracking-widest">// Étape 1 : Paramètres opérationnels</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div>
-                        <label class="block text-[10px] font-bold text-zinc-500 mb-2 uppercase tracking-widest mono">Collaborateurs concernés</label>
-                        <input type="number" id="volume" placeholder="Ex: 5" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 text-white transition">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-zinc-500 mb-2 uppercase tracking-widest mono">Heures perdues / sem / pers</label>
-                        <input type="number" id="temps" placeholder="Ex: 4" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 text-white transition">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-[10px] font-bold text-zinc-500 mb-2 uppercase tracking-widest mono">Coût horaire moyen (€)</label>
-                        <input type="number" id="cout" placeholder="Ex: 50" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 text-white transition">
-                    </div>
-                </div>
-                <button onclick="calculateFirstStep()" class="w-full py-5 bg-white text-black font-black uppercase tracking-tighter hover:bg-blue-600 hover:text-white transition rounded-xl btn-glow">
-                    Estimer le gain potentiel
-                </button>
+    <section class="max-w-6xl mx-auto px-6 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-10 relative overflow-hidden group">
+                <div class="text-white font-black text-4xl mb-6 opacity-20 group-hover:opacity-100 transition duration-500 italic">A</div>
+                <h4 class="text-white font-bold text-lg mb-4">ANALYSER</h4>
+                <p class="text-zinc-500 text-sm">Audit complet de vos flux pour identifier où vous perdez de l'argent et du temps chaque jour.</p>
             </div>
-
-            <div id="step2" class="hidden animate-fade-in">
-                <div class="text-center mb-8">
-                    <p class="text-[10px] mono uppercase text-blue-400 tracking-[0.3em] mb-2">Résultat Préliminaire</p>
-                    <div id="display-gain" class="text-6xl font-black text-white mb-4">0 €</div>
-                    <p class="text-zinc-500 text-sm">C'est le montant que vous perdez chaque année en tâches manuelles.</p>
-                </div>
-                
-                <div class="bg-white/5 border border-white/10 p-6 rounded-2xl mb-8">
-                    <label class="block text-[10px] font-bold text-zinc-500 mb-4 uppercase tracking-widest mono text-center">Débloquer l'analyse IA & le rapport complet</label>
-                    <input type="email" id="email" placeholder="votre@email.pro" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 text-white mb-4">
-                    <textarea id="vision_text" placeholder="Quelle est votre vision pour 2026 ?" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:outline-none focus:border-blue-500 text-white h-24 mb-4"></textarea>
-                    <button id="finalSubmit" onclick="sendToN8N()" class="w-full py-5 bg-blue-600 text-white font-black uppercase tracking-tighter hover:bg-blue-700 transition rounded-xl">
-                        Recevoir mon audit souverain
-                    </button>
-                </div>
+            <div class="glass-card p-10 relative overflow-hidden group">
+                <div class="text-white font-black text-4xl mb-6 opacity-20 group-hover:opacity-100 transition duration-500 italic">I</div>
+                <h4 class="text-white font-bold text-lg mb-4">IMPLÉMENTER</h4>
+                <p class="text-zinc-500 text-sm">Construction de votre infrastructure sur-mesure. Une solution robuste dont vous êtes le seul propriétaire.</p>
             </div>
-
-            <div id="step3" class="hidden text-center py-10 animate-fade-in">
-                <div id="final-ia-message" class="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-6 mb-8 text-left text-blue-100 italic"></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div class="p-6 glass rounded-xl"><p class="text-[10px] mono uppercase mb-2">Gain</p><div id="final-gain" class="text-3xl font-bold text-white">0 €</div></div>
-                    <div class="p-6 bg-blue-600 rounded-xl"><p class="text-[10px] mono uppercase mb-2">Devis</p><div id="final-devis" class="text-3xl font-bold text-white">0 €</div></div>
-                </div>
-                <p class="text-zinc-500 text-xs mb-6 uppercase tracking-widest">Dossier technique envoyé. Vérifiez vos spams.</p>
-                <button onclick="window.location.reload()" class="text-zinc-600 underline mono text-[10px] uppercase">Recommencer</button>
+            <div class="glass-card p-10 relative overflow-hidden group">
+                <div class="text-white font-black text-4xl mb-6 opacity-20 group-hover:opacity-100 transition duration-500 italic">A</div>
+                <h4 class="text-white font-bold text-lg mb-4">AUTOMATISER</h4>
+                <p class="text-zinc-500 text-sm">Le système tourne seul. Votre charge mentale diminue pendant que votre rentabilité augmente.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center border-t border-white/5 relative z-10">
-        <p class="mono text-[10px] uppercase tracking-widest text-zinc-600">© 2026 AIA-AUTOMATISATION.FR</p>
+    <section id="audit" class="py-24 px-6">
+        <div class="max-w-3xl mx-auto glass-card border-none bg-zinc-900/50 relative overflow-hidden">
+            <div class="px-8 py-6 border-b border-white/5 bg-white/5 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="ai-pulse"></div>
+                    <div>
+                        <p class="text-white font-bold text-sm tracking-wide">Agent IA d'AIA</p>
+                        <p class="text-zinc-500 text-[10px] mono uppercase">Analyse de performance en temps réel</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ai-chat-body" class="p-8 md:p-12">
+                <div id="step1">
+                    <p class="text-zinc-300 mb-8 italic">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données sur votre activité."</p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-500 mb-3 uppercase mono">Vous êtes :</label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button onclick="selectProfile('Indépendant')" class="p-4 rounded-xl border border-white/10 hover:border-blue-500 hover:bg-blue-500/5 transition text-xs text-white">Indépendant / Freelance</button>
+                                <button onclick="selectProfile('TPE')" class="p-4 rounded-xl border border-white/10 hover:border-blue-500 hover:bg-blue-500/5 transition text-xs text-white">TPE / Petite Équipe</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-500 mb-3 uppercase mono">Temps gaspillé par semaine (heures)</label>
+                            <input type="number" id="temps" placeholder="Ex: 12" class="w-full bg-black/40 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500 transition font-bold">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-zinc-500 mb-3 uppercase mono">Tâche la plus chronophage ?</label>
+                            <textarea id="frein" placeholder="Décrivez la tâche qui vous prend trop de temps..." class="w-full bg-black/40 border border-white/10 p-5 rounded-2xl text-white h-28 outline-none focus:border-blue-500 transition"></textarea>
+                        </div>
+                        <button onclick="toStep2()" class="w-full py-6 btn-grad rounded-2xl uppercase tracking-widest text-sm shadow-xl">Calculer mon potentiel ROI</button>
+                    </div>
+                </div>
+
+                <div id="step2" class="hidden animate-fade-in">
+                    <div class="text-center mb-10">
+                        <p class="text-[10px] mono uppercase text-blue-400 mb-4 tracking-[0.4em]">Analyse terminée</p>
+                        <div id="display-gain" class="text-6xl font-black text-white mb-2">0 €</div>
+                        <p class="text-zinc-500 text-xs italic">C'est la valeur de votre temps gaspillé chaque année.</p>
+                    </div>
+
+                    <div class="p-8 bg-black/40 border border-white/10 rounded-3xl">
+                        <p class="text-zinc-300 text-sm mb-6 leading-relaxed italic">"J'ai détecté un potentiel d'automatisation de 75%. Pour valider votre dossier et vérifier si nous pouvons assurer ce ROI, j'ai besoin de vos coordonnées."</p>
+                        
+                        <input type="email" id="email" placeholder="votre@email.pro" class="w-full bg-zinc-900 border border-white/10 p-5 rounded-xl text-white mb-6 outline-none focus:border-blue-500">
+                        
+                        <button id="finalSubmit" onclick="sendToN8N()" class="w-full py-5 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition">
+                            Soumettre mon projet à l'IA
+                        </button>
+                    </div>
+                </div>
+
+                <div id="step3" class="hidden text-center py-10 animate-fade-in">
+                    <div class="text-blue-500 text-6xl mb-6">✓</div>
+                    <h3 class="text-2xl font-black text-white mb-4 italic">Dossier en file d'attente</h3>
+                    <p id="ia-msg" class="text-zinc-500 text-sm italic mb-10 leading-relaxed"></p>
+                    <p class="text-[10px] text-zinc-600 uppercase tracking-widest">Réponse d'éligibilité sous 24h.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 text-center border-t border-white/5">
+        <img src="https://i.ibb.co/v4m8fXN/LOGO-AIA-complet.png" alt="AIA" class="h-8 mx-auto mb-8 opacity-40">
+        <p class="mono text-[9px] uppercase tracking-[0.3em] text-zinc-700">© 2026 AIA-AUTOMATISATION.FR // Analyser • Implémenter • Automatiser</p>
     </footer>
 
     <script>
-        // Effet Mouse Glow
-        const glow = document.getElementById('mouse-glow');
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
+        let selectedProfile = "";
+        function selectProfile(p) { selectedProfile = p; }
 
-        // Etape 1 -> Etape 2
-        function calculateFirstStep() {
-            const vol = parseFloat(document.getElementById('volume').value) || 0;
+        function toStep2() {
             const tps = parseFloat(document.getElementById('temps').value) || 0;
-            const ct = parseFloat(document.getElementById('cout').value) || 0;
+            if(!tps) return alert("Indiquez votre temps gaspillé.");
             
-            if(!vol || !tps || !ct) return alert("Veuillez remplir les champs.");
-
-            const gain = Math.round(vol * tps * 52 * ct);
+            // Calcul : Heures * 52 sem * 50€ (base indicatif Indépendant/TPE)
+            const gain = Math.round(tps * 52 * 50);
             document.getElementById('display-gain').innerText = gain.toLocaleString() + " €";
             
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
         }
 
-        // Etape 2 -> Etape 3 (n8n)
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
-            if(!email.includes('@')) return alert("Email invalide");
+            if(!email.includes('@')) return alert("Email requis.");
 
             btn.disabled = true;
-            btn.innerText = "SYNCHRONISATION AVEC L'IA...";
+            btn.innerText = "TRANSFERT À L'ARCHITECTE...";
 
             const payload = {
                 email: email,
-                volume: document.getElementById('volume').value,
                 temps: document.getElementById('temps').value,
-                cout: document.getElementById('cout').value,
-                vision: document.getElementById('vision_text').value
+                frein: document.getElementById('frein').value,
+                profil: selectedProfile
             };
 
             try {
@@ -182,10 +220,7 @@
 
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step3').classList.remove('hidden');
-                
-                document.getElementById('final-ia-message').innerText = `"${result.message_ia}"`;
-                document.getElementById('final-gain').innerText = Number(result.gain_client).toLocaleString() + " €";
-                document.getElementById('final-devis').innerText = Number(result.devis_client).toLocaleString() + " €";
+                document.getElementById('ia-msg').innerText = `"${result.message_ia}"`;
             } catch (e) {
                 btn.innerText = "ERREUR RÉSEAU";
                 btn.disabled = false;

@@ -30,9 +30,9 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-            line-height: 1.3; /* Un peu plus d'espace vertical */
-            padding-right: 0.25em; /* Espace généreux pour le 'R' et le 'S' */
-            margin-right: -0.25em; /* Recentre le bloc */
+            line-height: 1.3;
+            padding-right: 0.25em; 
+            margin-right: -0.25em; 
             font-style: italic;
         }
 
@@ -273,7 +273,8 @@
             </div>
             <div id="step3" class="hidden text-center py-20">
                 <div class="text-gradient text-4xl md:text-5xl font-black mb-6 italic">DOSSIER REÇU.</div>
-                <p id="ia-msg" class="text-zinc-500 text-sm italic"></p>
+                <p id="ia-msg" class="text-zinc-500 text-sm italic mb-10"></p>
+                <div id="cal-container" class="flex justify-center"></div>
             </div>
         </div>
     </section>
@@ -337,25 +338,51 @@
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
+            const iaMsgElement = document.getElementById('ia-msg');
+            const calContainer = document.getElementById('cal-container');
+
             if(!email.includes('@')) return alert("Email requis.");
+            
             btn.disabled = true;
-            btn.innerText = "ENVOI...";
+            btn.innerText = "ANALYSE EN COURS...";
+
             try {
                 const response = await fetch('https://outil-aia-automatisation.app.n8n.cloud/webhook/simulation-roi', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, temps: document.getElementById('temps').value, frein: document.getElementById('frein').value, profil: document.getElementById('profil').value })
+                    body: JSON.stringify({ 
+                        email, 
+                        temps: document.getElementById('temps').value, 
+                        frein: document.getElementById('frein').value, 
+                        profil: document.getElementById('profil').value 
+                    })
                 });
+
                 const result = await response.json();
+
+                // Passage à l'étape finale
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step3').classList.remove('hidden');
-                document.getElementById('ia-msg').innerText = result.message_ia || "Analyse en cours. Réponse sous 24h.";
+
+                // Affichage du message de l'IA (Clé correspondante au nœud [OUT] de n8n)
+                iaMsgElement.innerText = result.analyse_ia || "Analyse terminée. Vérifiez vos emails.";
+
+                // Affichage du bouton de réservation si le lien est présent
+                if(result.lien_calendly) {
+                    const calBtn = document.createElement('a');
+                    calBtn.href = result.lien_calendly;
+                    calBtn.target = "_blank";
+                    calBtn.className = "btn-grad px-10 py-4 text-xs shadow-xl inline-block cursor-pointer";
+                    calBtn.innerText = "Réserver mon Audit Flash →";
+                    calContainer.appendChild(calBtn);
+                }
+
             } catch (e) {
                 btn.innerText = "ERREUR RÉSEAU";
                 btn.disabled = false;
+                console.error("Erreur n8n:", e);
             }
         }
     </script>
 </body>
 </html>
-

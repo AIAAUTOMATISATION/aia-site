@@ -244,19 +244,28 @@
                 <span class="text-[10px] mono text-blue-500 uppercase tracking-widest font-bold">Agent AIA en ligne</span>
             </div>
             <div id="step1">
-                <p class="text-zinc-400 mb-10 italic text-sm">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données."</p>
-                <div class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="number" id="temps" placeholder="Heures perdues / semaine" class="bg-white/5 border border-white/10 p-5 rounded-2xl text-white focus:border-blue-500 outline-none transition">
-                        <select id="profil" class="bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 focus:border-blue-500 outline-none transition appearance-none">
-                            <option value="Freelance">Freelance / Indépendant</option>
-                            <option value="TPE">TPE / Agence</option>
-                        </select>
-                    </div>
-                    <textarea id="frein" placeholder="Votre frein majeur actuel..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-28 focus:border-blue-500 outline-none transition"></textarea>
-                    <button onclick="toStep2()" class="w-full py-5 btn-grad">Calculer mon impact ROI</button>
-                </div>
-            </div>
+                 <p class="text-zinc-400 mb-6 italic text-sm">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données."</p>
+                 <div class="space-y-6">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         <div class="relative">
+                             <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Temps administratif / semaine</label>
+                             <input type="number" id="temps" placeholder="ex: 10 heures" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white focus:border-blue-500 outline-none transition">
+                         </div>
+                         <div class="relative">
+                             <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Structure</label>
+                             <select id="profil" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 focus:border-blue-500 outline-none transition appearance-none">
+                                 <option value="Freelance">Indépendant (Base 55€/h)</option>
+                                 <option value="TPE">Agence / TPE (Base 85€/h)</option>
+                             </select>
+                         </div>
+                      </div>
+                      <div class="relative">
+                          <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre goulot d'étranglement majeur</label>
+                          <textarea id="frein" placeholder="Ex: Je passe 3h par jour à répondre aux mêmes emails de support..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-28 focus:border-blue-500 outline-none transition"></textarea>
+                      </div>
+                      <button onclick="toStep2()" class="w-full py-5 btn-grad">Calculer mon impact ROI →</button>
+                  </div>
+             </div>
             <div id="step2" class="hidden text-center py-10">
                 <div id="display-gain" class="text-6xl md:text-7xl font-black text-white mb-2">0 €</div>
                 <p class="text-blue-400 mono text-[10px] uppercase tracking-widest mb-10">Valeur Annuelle à Libérer</p>
@@ -386,3 +395,4 @@
     </script>
 </body>
 </html>
+

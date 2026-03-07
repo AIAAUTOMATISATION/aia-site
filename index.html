@@ -28,39 +28,44 @@
             background-clip: text;
             display: inline-block;
             line-height: 1.3;
+            padding-right: 0.25em; 
+            margin-right: -0.25em; 
             font-style: italic;
         }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Système de Toast Premium */
+        /* --- SYSTÈME DE TOASTS --- */
         #toast-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10000;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+            pointer-events: none;
         }
 
         .toast {
-            background: rgba(10, 10, 10, 0.9);
+            pointer-events: auto;
+            background: rgba(10, 10, 10, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-left: 4px solid #2E6CF6;
             color: white;
             padding: 16px 24px;
             border-radius: 12px;
             font-size: 13px;
-            font-weight: 500;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            font-weight: 600;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             transform: translateX(120%);
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .toast.show { transform: translateX(0); }
         .toast-error { border-left-color: #ef4444; }
+        /* ------------------------ */
 
         .badge-target {
             padding: 4px 12px;
@@ -98,23 +103,40 @@
             border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); overflow: hidden;
         }
+        @media (min-width: 1024px) { .step-card { padding: 40px; } }
 
         .step-bg-text {
             position: absolute; right: -5px; bottom: -10px; font-size: 80px; font-weight: 900;
             color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03); 
-            z-index: 0; transition: all 0.8s ease;
+            transition: all 0.8s ease; z-index: 0;
         }
         .step-card:hover .step-bg-text { 
-            -webkit-text-stroke: 0px; background: var(--grad); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; opacity: 0.25;
+            -webkit-text-stroke: 0px transparent;
+            background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0.25; transform: translateY(-10px) scale(1.05);
         }
+        .step-indicator {
+            position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background: var(--grad); transform: scaleY(0); transition: transform 0.4s ease; transform-origin: bottom;
+        }
+        .step-card:hover .step-indicator { transform: scaleY(1); }
+        .step-title { font-size: 1.5rem; font-weight: 900; color: white; transition: 0.3s; }
+        .step-card:hover .step-title { color: #00B8D9; }
 
         .btn-grad {
             background: var(--grad); background-size: 200% auto;
             transition: 0.5s; color: white; border-radius: 16px;
-            font-weight: 800; text-transform: uppercase;
+            font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+            display: flex; align-items: center; justify-content: center;
         }
         .btn-grad:hover { background-position: right center; box-shadow: 0 10px 30px rgba(46, 108, 246, 0.3); }
+
+        .hero-glow {
+            position: absolute; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(46, 108, 246, 0.15) 0%, transparent 70%);
+            top: -100px; left: 50%; transform: translateX(-50%); z-index: -1;
+        }
+        @media (min-width: 768px) { .hero-glow { width: 800px; height: 600px; } }
 
         #mentions-modal {
             display: none; position: fixed; inset: 0;
@@ -123,19 +145,20 @@
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
     <div id="toast-container"></div>
 
     <nav class="flex justify-between items-center px-6 py-6 max-w-7xl mx-auto relative z-20">
-        <img src="LOGO-AIA-complet.png" alt="AIA" class="h-8 md:h-12 w-auto object-contain">
+        <img src="LOGO-AIA-complet.png" alt="AIA Automatisation" class="h-8 md:h-12 w-auto object-contain">
         <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span class="text-[9px] mono uppercase text-zinc-500">AI Agent Readiness</span>
+            <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_8px_#3b82f6]"></div>
+            <span class="text-[9px] mono uppercase text-zinc-500 tracking-tighter">AI Agent Readiness</span>
         </div>
     </nav>
 
-    <section class="relative max-w-6xl mx-auto px-6 pt-12 text-center">
+    <section class="relative max-w-6xl mx-auto px-6 pt-12 pb-16 text-center">
+        <div class="hero-glow"></div>
         <div class="flex flex-wrap justify-center gap-2 mb-8">
             <span class="badge-target">TPE</span>
             <span class="badge-target">Freelances</span>
@@ -143,144 +166,208 @@
         </div>
         <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter leading-[1.1] mb-10 text-white">
             Éliminez vos tâches répétitives.<br>
-            <span class="text-gradient">Reprenez le contrôle.</span>
+            <span class="text-gradient">Reprenez le contrôle de votre temps.</span>
         </h1>
-        <p class="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12">
-            Nous bâtissons des agents IA qui travaillent 24/7. <span class="text-zinc-300">Vous pilotez sans effort.</span>
+        <p class="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Nous bâtissons des agents IA qui deviennent une extension de votre équipe. Ils travaillent 24/7. <br class="hidden md:block">
+            <span class="text-zinc-300 block mt-2">Vous pilotez sans effort. </span>
         </p>
-        <a href="#audit" class="btn-grad inline-flex px-12 py-5 text-lg">Déployer mon agent</a>
+        <div class="flex flex-col items-center gap-4">
+            <a href="#audit" class="btn-grad w-full sm:w-auto sm:inline-flex px-12 py-5 text-lg shadow-2xl">
+                Déployer mon agent
+            </a>
+            <p class="text-xs md:text-sm text-zinc-500 italic">
+                L'agent IA scannera votre écosystème en 60 secondes.
+            </p>
+        </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-6 py-32 relative z-10">
+    <section class="max-w-7xl mx-auto px-6 py-24 relative z-10">
         <div class="text-center mb-24">
             <h2 class="text-xs mono tracking-[0.4em] text-zinc-600 uppercase mb-4">Core Capabilities</h2>
-            <div class="text-3xl md:text-5xl font-black uppercase italic">L'IA au service de <span class="text-gradient">votre métier</span></div>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-32">
-            <div class="orbit-item group relative">
-                <div class="orbit-glow absolute -inset-8 bg-blue-600/10 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span class="mono text-[10px] text-blue-500 block mb-2">01. ASSISTANCE</span>
-                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase">Agents Conversions</h3>
-                <p class="text-[11px] text-zinc-500 mt-4 italic">Qualification de leads et support client 24/7 en autonomie totale.</p>
+            <div class="text-3xl md:text-5xl font-black uppercase italic">
+                L'IA au service de <br><span class="text-gradient">votre métier</span>
             </div>
-            <div class="orbit-item group relative">
-                <div class="orbit-glow absolute -inset-8 bg-purple-600/10 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <span class="mono text-[10px] text-purple-500 block mb-2">02. DATA</span>
-                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase">Lecture de Documents</h3>
-                <p class="text-[11px] text-zinc-500 mt-4 italic">Extraction intelligente de données sur PDF, factures et contrats.</p>
+        </div>
+        
+        <div class="relative max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-x-20 gap-y-32 lg:gap-y-48">
+            <div class="orbit-item group relative text-center lg:text-left">
+                <div class="orbit-glow absolute -inset-8 bg-blue-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
+                <span class="mono text-[10px] text-blue-500 block mb-2 opacity-40">01. ASSISTANCE</span>
+                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Agents<br>Conversations</h3>
+                <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">
+                    Qualification de leads et support client 24/7 en autonomie totale sur vos canaux.
+                </p>
+            </div>
+            <div class="orbit-item group relative text-center lg:text-left">
+                <div class="orbit-glow absolute -inset-8 bg-purple-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
+                <span class="mono text-[10px] text-purple-500 block mb-2 opacity-40">02. DATA</span>
+                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Lecture de<br>Documents</h3>
+                <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">
+                    Extraction intelligente de données sur PDF, factures et contrats complexes.
+                </p>
+            </div>
+            <div class="orbit-item group relative text-center lg:text-left">
+                <div class="orbit-glow absolute -inset-8 bg-emerald-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
+                <span class="mono text-[10px] text-emerald-500 block mb-2 opacity-40">03. SCALE</span>
+                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Workflows<br>Métier</h3>
+                <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">
+                    Synchronisation de vos outils SaaS pour automatiser vos processus de A à Z.
+                </p>
+            </div>
+            <div class="orbit-item group relative text-center lg:text-left">
+                <div class="orbit-glow absolute -inset-8 bg-red-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
+                <span class="mono text-[10px] text-red-500 block mb-2 opacity-40">04. PRODUCTIVITY</span>
+                <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Smart<br>Mailing</h3>
+                <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">
+                    Tri prédictif et assistance à la rédaction pour vos boîtes mails saturées.
+                </p>
             </div>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+    <section class="max-w-7xl mx-auto px-6 py-12 md:py-20 border-t border-white/5 relative z-20">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="step-card">
-                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-widest">01. Audit</div>
-                <h3 class="text-xl font-black text-white uppercase italic mb-4">Analyser</h3>
-                <p class="text-zinc-400 text-sm">Identification des goulots d'étranglement.</p>
+                <div class="step-indicator"></div>
+                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">01. Audit</div>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Analyser</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Identification des goulots d'étranglement et de votre potentiel réel.</p>
                 <div class="step-bg-text">A</div>
             </div>
             <div class="step-card">
-                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-widest">02. Setup</div>
-                <h3 class="text-xl font-black text-white uppercase italic mb-4">Implémenter</h3>
-                <p class="text-zinc-400 text-sm">Construction de votre architecture sur-mesure.</p>
+                <div class="step-indicator"></div>
+                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">02. Setup</div>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Implémenter</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Construction de votre architecture sur-mesure sur vos propres outils.</p>
                 <div class="step-bg-text">I</div>
             </div>
             <div class="step-card">
-                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-widest">03. Scale</div>
-                <h3 class="text-xl font-black text-white uppercase italic mb-4">Automatiser</h3>
-                <p class="text-zinc-400 text-sm">Le système prend le relais. La rentabilité explose.</p>
+                <div class="step-indicator"></div>
+                <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">03. Scale</div>
+                <h3 class="step-title mb-6 uppercase italic relative z-10">Automatiser</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Le système prend le relais. Votre rentabilité explose sans effort.</p>
                 <div class="step-bg-text">A</div>
             </div>
         </div>
     </section>
 
-    <section id="audit" class="py-24 px-6 relative z-20">
-        <div class="max-w-4xl mx-auto bg-[#0a0a0a] border border-white/5 rounded-[40px] p-8 md:p-12 shadow-2xl">
+    <section id="audit" class="py-24 px-4 sm:px-6 relative z-20">
+        <div class="max-w-4xl mx-auto bg-[#0a0a0a] border border-white/5 rounded-[40px] p-8 md:p-12 relative shadow-2xl text-center">
             
-            <div class="flex items-center gap-3 mb-10 border-b border-white/5 pb-6">
+            <div class="flex items-center justify-center gap-3 mb-10 border-b border-white/5 pb-6">
                 <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
                 <span class="text-[10px] mono text-blue-500 uppercase tracking-widest font-bold">Agent AIA Opérationnel</span>
             </div>
 
             <div id="step1" class="text-left">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div>
-                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase">Temps perdu / sem (h)</label>
-                        <input type="number" id="temps" placeholder="ex: 10" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500">
+                <p class="text-zinc-400 mb-8 italic text-sm text-center">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données."</p>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="relative">
+                            <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Temps perdu / sem (h)</label>
+                            <input type="number" id="temps" placeholder="ex: 10" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500 transition">
+                        </div>
+                        <div class="relative">
+                            <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Structure</label>
+                            <select id="profil" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none">
+                                <option value="Freelance">Indépendant (Freelance)</option>
+                                <option value="TPE">Agence / TPE</option>
+                            </select>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Équipe (Pers.)</label>
+                            <input type="number" id="equipe" value="1" min="1" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500 transition">
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase">Structure</label>
-                        <select id="profil" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none">
-                            <option value="Freelance">Indépendant</option>
-                            <option value="TPE">Agence / TPE</option>
-                        </select>
+                    <div class="relative">
+                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre goulot d'étranglement majeur (min. 20 mots)</label>
+                        <textarea id="frein" placeholder="Ex: Je perds un temps fou à copier-coller mes factures depuis Excel vers Notion..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
                     </div>
-                    <div>
-                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase">Équipe (Pers.)</label>
-                        <input type="number" id="equipe" value="1" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none">
-                    </div>
+                    <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase tracking-tighter shadow-2xl">
+                        Calculer mon gain potentiel →
+                    </button>
                 </div>
-                <div class="mb-8">
-                    <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase">Goulot d'étranglement (min. 20 mots)</label>
-                    <textarea id="frein" placeholder="Décrivez votre processus manuel le plus pénible..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500"></textarea>
-                </div>
-                <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase">Calculer mon impact ROI →</button>
             </div>
 
-            <div id="step2" class="hidden text-center">
+            <div id="step2" class="hidden">
+                <div class="inline-block px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] mono uppercase tracking-widest mb-6">Simulation Terminée</div>
                 <div id="local-gain" class="text-6xl md:text-8xl font-black text-white mb-4 tracking-tighter">0 €</div>
-                <p class="text-zinc-500 mono text-[10px] uppercase mb-10">Valeur annuelle récupérable</p>
-                <div class="bg-white p-8 rounded-[32px] max-w-md mx-auto">
-                    <h4 class="text-black font-black text-xl mb-2 uppercase italic">Débloquer l'Audit Complet</h4>
-                    <p class="text-zinc-500 text-[11px] mb-6">Saisissez votre email pro pour voir l'analyse de l'IA.</p>
-                    <input type="email" id="email" placeholder="votre@email.com" class="w-full bg-zinc-100 p-5 rounded-xl text-black mb-4 outline-none font-bold">
-                    <button onclick="sendToN8N()" id="finalSubmit" class="w-full py-5 bg-black text-white font-black uppercase text-xs rounded-xl">Voir mon audit & le planning →</button>
+                <p class="text-zinc-500 mono text-[10px] uppercase tracking-widest mb-10">Valeur annuelle de temps récupérable</p>
+
+                <div class="bg-white p-1 rounded-[32px] shadow-2xl relative overflow-hidden text-center max-w-md mx-auto">
+                    <div class="p-8">
+                        <h4 class="text-black font-black text-xl mb-2 uppercase italic leading-none">Débloquer l'Audit Complet</h4>
+                        <p class="text-zinc-500 text-[11px] mb-6 leading-relaxed">Saisissez votre email professionnel pour recevoir l'analyse stratégique de l'IA et accéder au calendrier.</p>
+                        <input type="email" id="email" placeholder="votre@email.com" class="w-full bg-zinc-100 border border-zinc-200 p-5 rounded-xl text-black mb-4 outline-none focus:border-blue-500 font-bold">
+                        <button onclick="sendToN8N()" id="finalSubmit" class="w-full py-5 bg-black text-white font-black uppercase text-xs tracking-widest rounded-xl hover:bg-zinc-800 transition">Voir mon audit & le planning →</button>
+                    </div>
                 </div>
             </div>
 
             <div id="step-results" class="hidden text-left">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
                     <div class="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
-                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2">Gain Annuel</span>
+                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2 tracking-widest">Gain Annuel Potentiel</span>
                         <span id="res-gain" class="text-3xl font-black text-white">0 €</span>
                     </div>
                     <div class="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
-                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2">ROI</span>
+                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2 tracking-widest">ROI Estimé</span>
                         <span id="res-roi" class="text-3xl font-black text-emerald-400">0 %</span>
                     </div>
                     <div class="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
-                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2">Heures Libérées</span>
+                        <span class="text-[9px] mono text-zinc-500 uppercase block mb-2 tracking-widest">Heures récupérées</span>
                         <span id="res-heures" class="text-3xl font-black text-blue-400">0 h</span>
                     </div>
                 </div>
-                <div id="typewriter-text" class="text-zinc-400 text-sm italic p-6 bg-white/[0.02] border border-white/5 rounded-3xl min-h-[100px]"></div>
-                <div id="booking-section" class="hidden mt-12 border-t border-white/5 pt-12">
-                    <div id="my-cal-inline-audit-ia" style="width:100%; height:600px; overflow:scroll"></div>
+
+                <div class="mb-12">
+                    <h3 class="text-gradient text-2xl font-black italic uppercase mb-4">Audit Stratégique de l'IA :</h3>
+                    <div id="typewriter-text" class="text-zinc-400 text-sm leading-relaxed p-6 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[100px] shadow-inner"></div>
+                </div>
+
+                <div id="booking-section" class="hidden opacity-0 transition-opacity duration-1000 mt-12 border-t border-white/5 pt-12">
+                    <div class="text-center mb-10">
+                        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter leading-none">Sécurisez votre plan d'attaque</h3>
+                        <p class="text-zinc-500 text-xs mt-3">Choisissez un créneau de 15 min pour valider ces chiffres avec Arnaud.</p>
+                    </div>
+                    <div id="my-cal-inline-audit-ia" class="rounded-3xl bg-white overflow-hidden shadow-2xl" style="width:100%; height:600px; overflow:scroll"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center opacity-30">
-        <img src="LOGO-AIA-complet.png" class="h-6 mx-auto mb-4 grayscale">
-        <p class="text-[9px] mono uppercase mb-6">© 2026 AIA-AUTOMATISATION.FR</p>
-        <button onclick="toggleMentions()" class="text-[10px] mono uppercase border-b border-zinc-800">Mentions Légales</button>
+    <footer class="py-20 text-center relative z-30">
+        <img src="LOGO-AIA-complet.png" alt="AIA" class="h-6 mx-auto mb-2 grayscale opacity-30">
+        <p class="text-[9px] mono uppercase tracking-widest opacity-30 mb-2">Analyser • Implémenter • Automatiser</p>
+        <p class="text-[9px] mono uppercase tracking-widest opacity-30 mb-6">© 2026 AIA-AUTOMATISATION.FR</p>
+        <button onclick="toggleMentions()" class="text-[10px] mono text-zinc-600 hover:text-blue-500 transition uppercase tracking-widest relative z-50">
+            <span class="text-gradient">Mentions Légales</span>
+        </button>
     </footer>
 
     <div id="mentions-modal" onclick="toggleMentions()">
-        <div class="bg-zinc-900 border border-white/10 p-10 rounded-[30px] max-w-2xl w-full" onclick="event.stopPropagation()">
+        <div class="bg-zinc-900 border border-white/10 p-8 md:p-12 rounded-[30px] max-w-2xl w-full max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h2 class="text-2xl font-black uppercase italic mb-8">Mentions <span class="text-gradient">Légales</span></h2>
-            <p class="text-zinc-400 text-sm">AIA AUTOMATISATION / PLANCKE Arnaud<br>1442 ROUTE du Steent'je, 59270 Bailleul, FRANCE<br>SIREN : 101 903 342</p>
-            <button onclick="toggleMentions()" class="mt-10 text-[10px] mono uppercase text-zinc-500">Fermer</button>
+            <div class="space-y-6 text-sm text-zinc-400 leading-relaxed text-left">
+                <div>
+                    <p class="text-white font-bold mono text-xs uppercase mb-2">Éditeur du site</p>
+                    <p>AIA AUTOMATISATION / PLANCKE Arnaud<br>
+                    1442 ROUTE du Steent'je, 59270 Bailleul, FRANCE<br>
+                    SIREN : 101 903 342</p>
+                    <p class="mt-2">Contact : contact@aia-automatisation.fr</p>
+                </div>
+            </div>
+            <button onclick="toggleMentions()" class="mt-10 text-[10px] mono text-zinc-500 uppercase border-b border-zinc-800 pb-1">Fermer</button>
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
         // Init Cal.com
         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
         Cal("init", "audit-ia", {origin:"https://app.cal.eu"});
 
+        // --- FONCTION TOAST ---
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -299,11 +386,13 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        // ÉTAPE 1 -> 2
         function calculateLocal() {
             const tps = parseFloat(document.getElementById('temps').value);
             const frein = document.getElementById('frein').value;
-            if(!tps) return showToast("Indiquez vos heures perdues.", "error");
-            if(frein.split(' ').length < 15) return showToast("Détaillez votre frein (min. 20 mots).", "error");
+            
+            if(!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
+            if(frein.split(' ').length < 15) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
 
             const taux = (document.getElementById('profil').value === "TPE") ? 85 : 55;
             const equipe = parseFloat(document.getElementById('equipe').value) || 1;
@@ -312,16 +401,18 @@
             document.getElementById('local-gain').innerText = totalGain.toLocaleString() + " €";
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
-            showToast("Analyse locale terminée !");
+            window.location.hash = "audit";
+            showToast("Calcul local réussi !");
         }
 
+        // ÉTAPE 2 -> 3
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
-            if(!email.includes('@')) return showToast("Email pro requis.", "error");
+            if(!email.includes('@')) return showToast("Email pro valide requis.", "error");
 
             btn.disabled = true;
-            btn.innerText = "L'AGENT ANALYSE...";
+            btn.innerText = "L'AGENT GÉNÈRE VOTRE AUDIT...";
 
             const payload = {
                 email: email,
@@ -337,6 +428,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+
+                if(!response.ok) throw new Error();
+
                 const result = await response.json();
 
                 document.getElementById('step2').classList.add('hidden');
@@ -346,10 +440,12 @@
                 document.getElementById('res-heures').innerText = result.heures + " h";
 
                 typeWriter(result.analyse, email);
+                showToast("Analyse IA en cours...");
+
             } catch (e) {
-                showToast("Erreur de connexion serveur.", "error");
+                showToast("Erreur de connexion avec l'IA. Réessayez.", "error");
                 btn.disabled = false;
-                btn.innerText = "Réessayer l'analyse →";
+                btn.innerText = "Voir mon audit & le planning →";
             }
         }
 
@@ -359,16 +455,19 @@
             function type() {
                 if (i < text.length) {
                     container.innerHTML += text.charAt(i); i++;
-                    setTimeout(type, 10);
+                    setTimeout(type, 12);
                 } else {
-                    document.getElementById('booking-section').classList.remove('hidden');
+                    const booking = document.getElementById('booking-section');
+                    booking.classList.remove('hidden');
+                    setTimeout(() => { booking.classList.add('opacity-100'); }, 100);
+                    
                     Cal.ns["audit-ia"]("inline", {
                         elementOrSelector: "#my-cal-inline-audit-ia",
                         config: {"layout":"month_view"},
                         calLink: "aia-automatisation/audit-ia",
                     });
                     Cal.ns["audit-ia"]("ui", {"email": email});
-                    showToast("Audit stratégique prêt.");
+                    showToast("Audit finalisé.");
                 }
             }
             type();

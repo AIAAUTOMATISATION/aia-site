@@ -477,15 +477,23 @@
             const tps = parseFloat(document.getElementById('temps').value);
             const frein = document.getElementById('frein').value;
             const words = frein.trim().split(/\s+/).length;
+            const ambition = document.querySelector('input[name="ambition"]:checked');
 
-            if(!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
-            if(words < 20) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
+            if (!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
+            if (words < 20) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
+            if (!ambition) return showToast("Veuillez sélectionner votre ambition.", "error");
 
-            const taux = (document.getElementById('profil').value === "TPE") ? 100 : 80;
+            // Collecte des outils cochés
+            const outilsCoches = [...document.querySelectorAll('.outil-checkbox:checked')].map(cb => cb.value);
+
+            // Calcul indicatif côté HTML (taux moyen 60€ fallback)
+            const taux = (document.getElementById('profil').value === "TPE") ? 70 : 60;
             const equipe = parseFloat(document.getElementById('equipe').value) || 1;
-            const totalGain = Math.round(tps * 12 * taux * equipe); // Calcule la base mensuelle valorisée sur 12 mois
+            const gainSemaine = Math.round(tps * taux * equipe);
+            const gainAnnuel = gainSemaine * 48;
 
-            document.getElementById('local-gain').innerText = totalGain.toLocaleString() + " €";
+            document.getElementById('local-gain-semaine').innerText = gainSemaine.toLocaleString() + " €";
+            document.getElementById('local-gain').innerText = gainAnnuel.toLocaleString() + " €";
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             window.location.hash = "audit";
@@ -577,5 +585,6 @@
     </script>
 </body>
 </html>
+
 
 

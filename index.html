@@ -149,6 +149,38 @@
             background: rgba(0,0,0,0.9); z-index: 100;
             align-items: center; justify-content: center; padding: 20px;
         }
+
+        /* DROPDOWN CUSTOM */
+        .custom-select { position: relative; }
+        .custom-select-trigger {
+            width: 100%; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px; border-radius: 16px; color: #a1a1aa;
+            cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; font-size: 14px; transition: border 0.3s;
+            user-select: none;
+        }
+        .custom-select-trigger:hover { border-color: #3b82f6; }
+        .custom-select-trigger.active { border-color: #3b82f6; color: white; }
+        .custom-select-arrow {
+            width: 16px; height: 16px; transition: transform 0.3s;
+            opacity: 0.5;
+        }
+        .custom-select-trigger.active .custom-select-arrow { transform: rotate(180deg); }
+        .custom-select-options {
+            position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+            background: #111111; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px; overflow: hidden; z-index: 100;
+            display: none; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .custom-select-options.open { display: block; }
+        .custom-select-option {
+            padding: 14px 20px; cursor: pointer; font-size: 14px;
+            color: #a1a1aa; transition: all 0.2s; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .custom-select-option:last-child { border-bottom: none; }
+        .custom-select-option:hover { background: rgba(59,130,246,0.1); color: white; }
+        .custom-select-option.selected { color: #3b82f6; font-weight: 700; }
     </style>
 </head>
 <body class="antialiased">
@@ -287,10 +319,17 @@
                         </div>
                         <div class="relative">
                             <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Structure</label>
-                            <select id="profil" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none">
-                                <option value="Freelance">Indépendant (Freelance)</option>
-                                <option value="TPE">Agence / TPE</option>
-                            </select>
+                            <div class="custom-select" id="select-profil">
+                                <div class="custom-select-trigger" onclick="toggleSelect('select-profil')">
+                                    <span>Indépendant (Freelance)</span>
+                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                <div class="custom-select-options">
+                                    <div class="custom-select-option selected" onclick="selectOption('select-profil', 'Freelance', 'Indépendant (Freelance)')">Indépendant (Freelance)</div>
+                                    <div class="custom-select-option" onclick="selectOption('select-profil', 'TPE', 'Agence / TPE')">Agence / TPE</div>
+                                </div>
+                                <input type="hidden" id="profil" value="Freelance">
+                            </div>
                         </div>
                         <div class="relative">
                             <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Équipe (Pers.)</label>
@@ -612,6 +651,7 @@
     </script>
 </body>
 </html>
+
 
 
 

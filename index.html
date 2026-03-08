@@ -442,8 +442,11 @@
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
+    
+            // Validation basique de l'email
             if(!email.includes('@')) return showToast("Email pro valide requis.", "error");
 
+            // État de chargement
             btn.disabled = true;
             btn.innerText = "L'AGENT GÉNÈRE VOTRE AUDIT...";
 
@@ -460,43 +463,56 @@
                     })
                 });
 
-                if (!response.ok) throw new Error('Communication interrompue');
+                if (!response.ok) throw new Error('Communication avec l\'agent interrompue');
+        
                 const result = await response.json();
-        
-                // --- EXTRACTION ET NETTOYAGE ---
-        
-                // On récupère le montant (investissement) qui arrive maintenant de n8n
-                const investVal = result.investissement || 0;
-                const investStr = investVal.toLocaleString();
 
+                // --- 1. EXTRACTION DES DONNÉES ---
+                // On récupère l'investissement (devis_aia envoyé par le webhook n8n)
+                const investVal = result.investissement || 0;
                 const gainVal = result.gain || 0;
+        
+                // Formatage en texte (ex: 1 500)
+                const investStr = investVal.toLocaleString();
                 const gainStr = gainVal.toLocaleString();
 
-                // Nettoyage du ROI (on enlève le double % s'il existe)
+                // Nettoyage du ROI (on s'assure qu'il n'y a pas de double %)
                 let roiClean = result.roi ? result.roi.toString().replace('%%', '%') : "0%";
+                if (!roiClean.includes('%')) roiClean += '%';
 
-                // Nettoyage de l'analyse (remplacement des placeholders X et Y)
+                // --- 2. NETTOYAGE DU TEXTE DE L'IA ---
                 let auditText = result.analyse || "";
-                auditText = auditText.replace(/X\s*€/g, investStr + " €")
-                                     .replace(/Y\s*€/g, gainStr + " €")
-                                     .replace(/\[montant\]/g, investStr)
-                                     .replace(/\[gain\]/g, gainStr);
+        
+                // Suppression des balises techniques si l'IA en a laissé
+                auditText = auditText.replace(/\*\*AUDIT CLIENT\s*:\*\*/gi, '')
+                                     .replace(/\*\*BRIEFING INTERNE\s*:\*\*/gi, '')
+                                     .replace(/###\s*AUDIT CLIENT/gi, '');
 
-                // --- MISE À JOUR VISUELLE ---
+                // Remplacement de sécurité pour les chiffres dans le texte
+                auditText = auditText.replace(/X\s*€/gi, investStr + " €")
+                                     .replace(/Y\s*€/gi, gainStr + " €")
+                                     .replace(/\[montant\]/gi, investStr)
+                                     .replace(/\[gain\]/gi, gainStr)
+                                     .replace(/de\s*€/gi, "de " + investStr + " €"); // Corrige le "de €" vide
+
+                // --- 3. MISE À JOUR DE L'INTERFACE ---
+        
+                // Affichage de la section de résultats
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
         
+                // Injection des valeurs dans les 4 compteurs
                 document.getElementById('res-gain').innerText = gainStr + " €";
                 document.getElementById('res-roi').innerText = roiClean;
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
                 document.getElementById('res-invest').innerText = investStr + " €"; 
 
-                // Lancement de l'effet machine à écrire
+                // --- 4. LANCEMENT DE L'EFFET MACHINE À ÉCRIRE ---
                 typeWriter(auditText.trim(), email);
 
             } catch (e) {
                 console.error("Erreur Webhook:", e);
-                showToast("Erreur de connexion. L'agent est momentanément indisponible.", "error");
+                showToast("L'IA est momentanément indisponible. Réessayez.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer l'envoi →";
             }
@@ -536,6 +552,7 @@
     </script>
 </body>
 </html>
+
 
 
 

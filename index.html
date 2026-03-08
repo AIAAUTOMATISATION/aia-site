@@ -414,38 +414,46 @@
             btn.disabled = true;
             btn.innerText = "L'AGENT GÉNÈRE VOTRE AUDIT...";
 
-            const payload = {
-                email: email,
-                temps: document.getElementById('temps').value,
-                frein: document.getElementById('frein').value,
-                profil: document.getElementById('profil').value,
-                equipe: document.getElementById('equipe').value
-            };
-
             try {
                 const response = await fetch('https://outil-aia-automatisation.app.n8n.cloud/webhook/simulation-roi', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        email: email,
+                        temps: document.getElementById('temps').value,
+                        frein: document.getElementById('frein').value,
+                        profil: document.getElementById('profil').value,
+                        equipe: document.getElementById('equipe').value
+                    })
                 });
-
-                if(!response.ok) throw new Error();
 
                 const result = await response.json();
 
+                // --- SÉCURITÉ ANTI-CRASH ---
+                // On force 'analyse' à être une chaîne de caractères, quoi qu'il arrive
+                let texteAnalyse = "";
+                if (Array.isArray(result.analyse)) {
+                    texteAnalyse = result.analyse[0] || "Analyse en cours...";
+                } else {
+                    texteAnalyse = result.analyse || "Analyse en cours...";
+                }
+
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
-                document.getElementById('res-gain').innerText = result.gain.toLocaleString() + " €";
-                document.getElementById('res-roi').innerText = result.roi;
-                document.getElementById('res-heures').innerText = result.heures + " h";
+        
+                // Affichage des chiffres
+                document.getElementById('res-gain').innerText = (result.gain || 0).toLocaleString() + " €";
+                document.getElementById('res-roi').innerText = result.roi || "0%";
+                document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
 
-                typeWriter(result.analyse, email);
-                showToast("Analyse IA en cours...");
+                // Lancement de l'écriture avec le texte sécurisé
+                typeWriter(texteAnalyse, email);
 
             } catch (e) {
-                showToast("Erreur de connexion avec l'IA. Réessayez.", "error");
+                console.error("Erreur détaillée:", e);
+                showToast("L'IA a rencontré une erreur technique.", "error");
                 btn.disabled = false;
-                btn.innerText = "Voir mon audit & le planning →";
+                btn.innerText = "Réessayer";
             }
         }
 
@@ -475,5 +483,6 @@
     </script>
 </body>
 </html>
+
 
 

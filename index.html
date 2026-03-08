@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AIA | Éliminez la répétition. Reprenez le contrôle.</title>
+    <meta name="description" content="Automatisation IA sur-mesure pour TPE et Freelances. Libérez 10h+ par semaine.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
@@ -78,9 +79,10 @@
             color: #a1a1aa;
         }
 
-        /* FIX AFFICHAGE TEXTE IA (Respecte les sauts de ligne) */
+        /* FIX AFFICHAGE TEXTE IA */
         #typewriter-text {
             white-space: pre-line;
+            color: #e4e4e7; /* Zinc-200 pour meilleure lecture */
         }
 
         @keyframes float {
@@ -173,9 +175,18 @@
             <span class="text-gradient">Reprenez le contrôle de votre temps.</span>
         </h1>
         <p class="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Nous bâtissons des agents IA qui deviennent une extension de votre équipe. Ils travaillent 24/7. <br class="hidden md:block">
-            <span class="text-zinc-300 block mt-2">Vous pilotez sans effort. </span>
+            Nous bâtissons des agents IA qui deviennent une extension de votre équipe. <br class="hidden md:block">
+            Elles travaillent 24/7. <span class="text-zinc-300">Vous pilotez sans effort. </span>
         </p>
+        
+        <div class="flex flex-wrap justify-center items-center gap-8 mb-12 opacity-40 grayscale hover:grayscale-0 transition duration-500">
+            <span class="mono text-[10px] uppercase tracking-widest text-zinc-400 w-full mb-2">Expertises technologiques :</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/OpenAI_Logo.svg" alt="OpenAI" class="h-5 invert">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Zapier_logo.svg" alt="Zapier" class="h-5 invert">
+            <img src="https://cdn.worldvectorlogo.com/logos/make-1.svg" alt="Make" class="h-5">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg" alt="Notion" class="h-5 invert">
+        </div>
+
         <div class="flex flex-col items-center gap-4">
             <a href="#audit" class="btn-grad w-full sm:w-auto sm:inline-flex px-12 py-5 text-lg shadow-2xl">
                 Déployer mon agent
@@ -285,12 +296,16 @@
                         </div>
                     </div>
                     <div class="relative">
-                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre goulot d'étranglement majeur (min. 20 mots)</label>
-                        <textarea id="frein" placeholder="Ex: Je perds un temps fou à copier-coller mes factures depuis Excel vers Notion..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-[10px] mono text-zinc-500 uppercase tracking-widest">Votre goulot d'étranglement majeur</label>
+                            <span id="word-count" class="text-[9px] mono text-red-500 uppercase">0 / 20 mots</span>
+                        </div>
+                        <textarea id="frein" oninput="updateWordCount()" placeholder="Ex: Je perds un temps fou à copier-coller mes factures depuis Excel vers Notion..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
                     </div>
                     <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase tracking-tighter shadow-2xl">
                         Calculer mon gain potentiel →
                     </button>
+                    <p class="text-[9px] text-center text-zinc-600 uppercase mono">Vos données sont sécurisées et non-stockées sans votre accord.</p>
                 </div>
             </div>
 
@@ -330,16 +345,19 @@
                 </div>
 
                 <div class="mb-12">
-                    <h3 class="text-gradient text-2xl font-black italic uppercase mb-4">Audit Stratégique de l'IA :</h3>
-                    <div id="typewriter-text" class="text-zinc-400 text-sm leading-relaxed p-6 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[100px] shadow-inner">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-gradient text-2xl font-black italic uppercase">Audit Stratégique de l'IA :</h3>
+                        <button onclick="location.reload()" class="text-[9px] mono text-zinc-500 uppercase hover:text-white transition">Nouvelle simulation</button>
+                    </div>
+                    <div id="typewriter-text" class="text-zinc-200 text-sm md:text-base leading-relaxed p-6 md:p-10 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[150px] shadow-inner">
                         Analyse en cours...
                     </div>
                 </div>
 
                 <div id="booking-section" class="hidden opacity-0 transition-opacity duration-1000 mt-12 border-t border-white/5 pt-12">
                     <div class="text-center mb-10">
-                        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter leading-none">Sécurisez votre plan d'attaque</h3>
-                        <p class="text-zinc-500 text-xs mt-3">Choisissez un créneau de 15 min pour valider ces chiffres avec Arnaud.</p>
+                        <h3 class="text-2xl font-black text-white uppercase italic tracking-tighter leading-none">Sécurisez votre plan d'attaque avec Arnaud</h3>
+                        <p class="text-zinc-500 text-xs mt-3">Choisissez un créneau de 15 min pour valider ces chiffres et identifier vos premières automatisations.</p>
                     </div>
                     <div id="my-cal-inline-audit-ia" class="rounded-3xl bg-white overflow-hidden shadow-2xl" style="width:100%; height:600px; overflow:scroll"></div>
                 </div>
@@ -390,6 +408,14 @@
             }, 4000);
         }
 
+        function updateWordCount() {
+            const text = document.getElementById('frein').value.trim();
+            const words = text ? text.split(/\s+/).length : 0;
+            const display = document.getElementById('word-count');
+            display.innerText = `${words} / 20 mots`;
+            display.className = words >= 20 ? "text-[9px] mono text-emerald-500 uppercase" : "text-[9px] mono text-red-500 uppercase";
+        }
+
         function toggleMentions() {
             const modal = document.getElementById('mentions-modal');
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
@@ -398,8 +424,10 @@
         function calculateLocal() {
             const tps = parseFloat(document.getElementById('temps').value);
             const frein = document.getElementById('frein').value;
+            const words = frein.trim().split(/\s+/).length;
+
             if(!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
-            if(frein.trim().split(/\s+/).length < 20) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
+            if(words < 20) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
 
             const taux = (document.getElementById('profil').value === "TPE") ? 85 : 55;
             const equipe = parseFloat(document.getElementById('equipe').value) || 1;
@@ -434,30 +462,26 @@
 
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
-                
-                // --- INSERTION DU NETTOYAGE ICI ---
-                // 1. On nettoie le double % s'il existe
-                result.roi = result.roi.toString().replace('%%', '%'); 
-                
-                // 2. On supprime les mentions techniques que l'IA pourrait laisser
-                result.analyse = result.analyse.replace(/### AUDIT CLIENT|AUDIT CLIENT :|BRIEFING INTERNE :|\*\*BRIEFING INTERNE\*\*|\*\*AUDIT CLIENT\*\*/gi, '');
-                // ----------------------------------
+
+                // Nettoyage et formatage des données n8n
+                result.roi = result.roi ? result.roi.toString().replace('%%', '%') : "N/A"; 
+                let analyseClean = result.analyse || "Analyse terminée.";
+                analyseClean = analyseClean.replace(/### AUDIT CLIENT|AUDIT CLIENT :|BRIEFING INTERNE :|\*\*BRIEFING INTERNE\*\*|\*\*AUDIT CLIENT\*\*/gi, '');
                 
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
                 
-                // MISE À JOUR DES RÉSULTATS (AVEC INVESTISSEMENT)
+                // Update UI
                 document.getElementById('res-gain').innerText = (result.gain || 0).toLocaleString() + " €";
-                document.getElementById('res-roi').innerText = (result.roi || "0");
+                document.getElementById('res-roi').innerText = result.roi;
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
                 document.getElementById('res-invest').innerText = (result.investissement || 0).toLocaleString() + " €";
 
-                const texteAnalyse = result.analyse || "Audit stratégique finalisé.";
-                typeWriter(texteAnalyse, email);
+                typeWriter(analyseClean, email);
 
             } catch (e) {
                 console.error("Erreur Webhook:", e);
-                showToast("Erreur de connexion. Vérifiez votre connexion ou réessayez.", "error");
+                showToast("Erreur de connexion. Vérifiez votre connexion.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer l'envoi →";
             }
@@ -467,10 +491,14 @@
             const container = document.getElementById('typewriter-text');
             container.innerHTML = ""; 
             let i = 0;
+            // Vitesse augmentée pour le confort utilisateur (10ms)
             function type() {
                 if (i < text.length) {
-                    container.innerHTML += text.charAt(i); i++;
-                    setTimeout(type, 12);
+                    const char = text.charAt(i);
+                    // Conversion des sauts de ligne pour HTML si nécessaire
+                    container.innerHTML += (char === '\n') ? '<br>' : char;
+                    i++;
+                    setTimeout(type, 10);
                 } else {
                     const booking = document.getElementById('booking-section');
                     booking.classList.remove('hidden');
@@ -490,5 +518,3 @@
     </script>
 </body>
 </html>
-
-

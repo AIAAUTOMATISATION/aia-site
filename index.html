@@ -507,7 +507,8 @@
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
                 document.getElementById('res-invest').innerText = investStr + " €"; 
 
-                // --- 4. LANCEMENT DE L'EFFET MACHINE À ÉCRIRE ---
+                auditText = auditText.replace(/serait de (\d+)(?!%)/g, "serait de $1%");
+                
                 typeWriter(auditText.trim(), email);
 
             } catch (e) {
@@ -552,6 +553,7 @@
     </script>
 </body>
 </html>
+
 
 
 

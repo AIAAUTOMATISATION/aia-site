@@ -462,38 +462,44 @@
 
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
-
-                const rawInvest = result.investissement || result.devis || 0;
-                const invest = rawInvest.toLocaleString();
-                
-                const gainAnnuel = (result.gain || 0).toLocaleString();
-
-                let roiClean = result.roi ? result.roi.toString().replace('%%', '%') : "0%";
-                if (!roiClean.includes('%')) roiClean += '%';
-
-                let auditText = result.analyse || "";
-                auditText = auditText.replace(/\*\*AUDIT CLIENT\s*:\*\*/gi, '')
-                                     .replace(/\*\*BRIEFING INTERNE\s*:\*\*/gi, '')
-                                     .replace(/###\s*AUDIT CLIENT/gi, '')
-                                     .replace(/\[gain\]/g, gainAnnuel)
-                                     .replace(/\[montant\]/g, invest);
         
+                // --- EXTRACTION ET NETTOYAGE ---
+        
+                // On récupère le montant (investissement) qui arrive maintenant de n8n
+                const investVal = result.investissement || 0;
+                const investStr = investVal.toLocaleString();
+
+                const gainVal = result.gain || 0;
+                const gainStr = gainVal.toLocaleString();
+
+                // Nettoyage du ROI (on enlève le double % s'il existe)
+                let roiClean = result.roi ? result.roi.toString().replace('%%', '%') : "0%";
+
+                // Nettoyage de l'analyse (remplacement des placeholders X et Y)
+                let auditText = result.analyse || "";
+                auditText = auditText.replace(/X\s*€/g, investStr + " €")
+                                     .replace(/Y\s*€/g, gainStr + " €")
+                                     .replace(/\[montant\]/g, investStr)
+                                     .replace(/\[gain\]/g, gainStr);
+
+                // --- MISE À JOUR VISUELLE ---
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
         
-                document.getElementById('res-gain').innerText = gainAnnuel + " €";
+                document.getElementById('res-gain').innerText = gainStr + " €";
                 document.getElementById('res-roi').innerText = roiClean;
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
-                document.getElementById('res-invest').innerText = invest + " €"; // Affiche enfin le montant
+                document.getElementById('res-invest').innerText = investStr + " €"; 
 
+                // Lancement de l'effet machine à écrire
                 typeWriter(auditText.trim(), email);
-  
-           } catch (e) {
+
+            } catch (e) {
                 console.error("Erreur Webhook:", e);
                 showToast("Erreur de connexion. L'agent est momentanément indisponible.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer l'envoi →";
-           }
+            }
         }
 
         function typeWriter(text, email) {
@@ -530,5 +536,6 @@
     </script>
 </body>
 </html>
+
 
 

@@ -463,25 +463,39 @@
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
 
-                // Nettoyage et formatage des données n8n
-                result.roi = result.roi ? result.roi.toString().replace('%%', '%') : "N/A"; 
-                let analyseClean = result.analyse || "Analyse terminée.";
-                analyseClean = analyseClean.replace(/### AUDIT CLIENT|AUDIT CLIENT :|BRIEFING INTERNE :|\*\*BRIEFING INTERNE\*\*|\*\*AUDIT CLIENT\*\*/gi, '');
+                // --- NETTOYAGE DES DONNÉES ---
+                // 1. Correction du double % (ex: 92%% -> 92%)
+                let roiClean = result.roi ? result.roi.toString().replace('%%', '%') : "0%";
+                if (!roiClean.includes('%')) roiClean += '%';
+
+                // 2. Préparation du texte de l'audit
+                let auditText = result.analyse || "";
                 
+                // On retire les balises de structure de l'IA pour ne garder que le corps du texte
+                auditText = auditText.replace(/\*\*AUDIT CLIENT\s*:\*\*/gi, '');
+                auditText = auditText.replace(/\*\*BRIEFING INTERNE\s*:\*\*/gi, '');
+                auditText = auditText.replace(/###\s*AUDIT CLIENT/gi, '');
+                
+                // Remplacement des placeholders si l'IA a oublié de les remplir
+                const gainAnnuel = (result.gain || 0).toLocaleString();
+                const invest = (result.investissement || 0).toLocaleString();
+                auditText = auditText.replace(/\[gain\]/g, gainAnnuel).replace(/\[montant\]/g, invest);
+
+                // --- MISE À JOUR DE L'INTERFACE ---
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
                 
-                // Update UI
-                document.getElementById('res-gain').innerText = (result.gain || 0).toLocaleString() + " €";
-                document.getElementById('res-roi').innerText = result.roi;
+                document.getElementById('res-gain').innerText = gainAnnuel + " €";
+                document.getElementById('res-roi').innerText = roiClean;
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
-                document.getElementById('res-invest').innerText = (result.investissement || 0).toLocaleString() + " €";
+                document.getElementById('res-invest').innerText = invest + " €";
 
-                typeWriter(analyseClean, email);
+                // Lancement de l'effet Typewriter
+                typeWriter(auditText.trim(), email);
 
             } catch (e) {
                 console.error("Erreur Webhook:", e);
-                showToast("Erreur de connexion. Vérifiez votre connexion.", "error");
+                showToast("Erreur de connexion. L'agent est momentanément indisponible.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer l'envoi →";
             }
@@ -491,18 +505,22 @@
             const container = document.getElementById('typewriter-text');
             container.innerHTML = ""; 
             let i = 0;
-            // Vitesse augmentée pour le confort utilisateur (10ms)
+            // Vitesse de 10ms pour un effet fluide sans être trop lent
             function type() {
                 if (i < text.length) {
                     const char = text.charAt(i);
-                    // Conversion des sauts de ligne pour HTML si nécessaire
                     container.innerHTML += (char === '\n') ? '<br>' : char;
                     i++;
                     setTimeout(type, 10);
                 } else {
+                    // Affichage du calendrier une fois le texte terminé
                     const booking = document.getElementById('booking-section');
                     booking.classList.remove('hidden');
-                    setTimeout(() => { booking.classList.add('opacity-100'); }, 100);
+                    setTimeout(() => { 
+                        booking.classList.add('opacity-100'); 
+                        // Scroll doux vers le calendrier pour l'engagement
+                        booking.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
                     
                     Cal.ns["audit-ia"]("inline", {
                         elementOrSelector: "#my-cal-inline-audit-ia",
@@ -510,7 +528,6 @@
                         calLink: "aia-automatisation/audit-ia",
                     });
                     Cal.ns["audit-ia"]("ui", {"email": email});
-                    showToast("Audit finalisé avec succès.");
                 }
             }
             type();
@@ -518,3 +535,4 @@
     </script>
 </body>
 </html>
+

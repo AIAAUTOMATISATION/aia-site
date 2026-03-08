@@ -508,7 +508,9 @@
                 document.getElementById('res-invest').innerText = investStr + " €"; 
 
                 auditText = auditText.replace(/serait de (\d+)(?!%)/g, "serait de $1%");
-                
+                auditText = auditText.replace(/(\d[\d\s]*)\s*€/g, (match, p1) => {
+                    return investStr + " €";
+                    
                 typeWriter(auditText.trim(), email);
 
             } catch (e) {
@@ -553,6 +555,7 @@
     </script>
 </body>
 </html>
+
 
 
 

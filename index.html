@@ -328,11 +328,38 @@
                     <div class="relative">
                         <label class="block text-[10px] mono text-zinc-500 mb-4 uppercase tracking-widest">Vos outils actuels</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            {["Excel / Google Sheets", "Notion", "Airtable", "HubSpot", "Zapier / Make", "Gmail / Outlook", "Slack", "Autre"].map(outil => `
                             <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="${outil}" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">${outil}</span>
-                            </label>`).join('')}
+                                <input type="checkbox" value="Excel / Google Sheets" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Excel / Google Sheets</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Notion" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Notion</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Airtable" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Airtable</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="HubSpot" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">HubSpot</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Zapier / Make" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Zapier / Make</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Gmail / Outlook" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Gmail / Outlook</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Slack" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Slack</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="Autre" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Autre</span>
+                            </label>
                         </div>
                     </div>
 
@@ -585,6 +612,7 @@
     </script>
 </body>
 </html>
+
 
 
 

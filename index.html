@@ -543,6 +543,52 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        function toggleSelect(id) {
+            const select = document.getElementById(id);
+            const options = select.querySelector('.custom-select-options');
+            const trigger = select.querySelector('.custom-select-trigger');
+    
+            // Ferme tous les autres dropdowns
+            document.querySelectorAll('.custom-select-options.open').forEach(el => {
+                if (el !== options) {
+                    el.classList.remove('open');
+                    el.closest('.custom-select').querySelector('.custom-select-trigger').classList.remove('active');
+                }
+            });
+    
+            options.classList.toggle('open');
+            trigger.classList.toggle('active');
+        }
+
+        function selectOption(selectId, value, label) {
+            const select = document.getElementById(selectId);
+            const trigger = select.querySelector('.custom-select-trigger span');
+            const hidden = select.querySelector('input[type="hidden"]');
+            const options = select.querySelectorAll('.custom-select-option');
+            const optionsContainer = select.querySelector('.custom-select-options');
+            const triggerEl = select.querySelector('.custom-select-trigger');
+
+            trigger.textContent = label;
+            hidden.value = value;
+            trigger.style.color = 'white';
+
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            optionsContainer.classList.remove('open');
+            triggerEl.classList.remove('active');
+        }
+
+        // Ferme les dropdowns si on clique ailleurs
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-select')) {
+                document.querySelectorAll('.custom-select-options.open').forEach(el => {
+                    el.classList.remove('open');
+                    el.closest('.custom-select').querySelector('.custom-select-trigger').classList.remove('active');
+                });
+            }
+        });
+
         function calculateLocal() {
             const tps = parseFloat(document.getElementById('temps').value);
             const frein = document.getElementById('frein').value;
@@ -657,6 +703,7 @@
     </script>
 </body>
 </html>
+
 
 
 

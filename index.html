@@ -463,42 +463,37 @@
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
 
-                // --- NETTOYAGE DES DONNÉES ---
-                // 1. Correction du double % (ex: 92%% -> 92%)
+                const rawInvest = result.investissement || result.devis || 0;
+                const invest = rawInvest.toLocaleString();
+                
+                const gainAnnuel = (result.gain || 0).toLocaleString();
+
                 let roiClean = result.roi ? result.roi.toString().replace('%%', '%') : "0%";
                 if (!roiClean.includes('%')) roiClean += '%';
 
-                // 2. Préparation du texte de l'audit
                 let auditText = result.analyse || "";
-                
-                // On retire les balises de structure de l'IA pour ne garder que le corps du texte
-                auditText = auditText.replace(/\*\*AUDIT CLIENT\s*:\*\*/gi, '');
-                auditText = auditText.replace(/\*\*BRIEFING INTERNE\s*:\*\*/gi, '');
-                auditText = auditText.replace(/###\s*AUDIT CLIENT/gi, '');
-                
-                // Remplacement des placeholders si l'IA a oublié de les remplir
-                const gainAnnuel = (result.gain || 0).toLocaleString();
-                const invest = (result.investissement || 0).toLocaleString();
-                auditText = auditText.replace(/\[gain\]/g, gainAnnuel).replace(/\[montant\]/g, invest);
-
-                // --- MISE À JOUR DE L'INTERFACE ---
+                auditText = auditText.replace(/\*\*AUDIT CLIENT\s*:\*\*/gi, '')
+                                     .replace(/\*\*BRIEFING INTERNE\s*:\*\*/gi, '')
+                                     .replace(/###\s*AUDIT CLIENT/gi, '')
+                                     .replace(/\[gain\]/g, gainAnnuel)
+                                     .replace(/\[montant\]/g, invest);
+        
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
-                
+        
                 document.getElementById('res-gain').innerText = gainAnnuel + " €";
                 document.getElementById('res-roi').innerText = roiClean;
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
-                document.getElementById('res-invest').innerText = invest + " €";
+                document.getElementById('res-invest').innerText = invest + " €"; // Affiche enfin le montant
 
-                // Lancement de l'effet Typewriter
                 typeWriter(auditText.trim(), email);
-
-            } catch (e) {
+  
+           } catch (e) {
                 console.error("Erreur Webhook:", e);
                 showToast("Erreur de connexion. L'agent est momentanément indisponible.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer l'envoi →";
-            }
+           }
         }
 
         function typeWriter(text, email) {
@@ -535,4 +530,5 @@
     </script>
 </body>
 </html>
+
 

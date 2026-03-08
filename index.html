@@ -502,14 +502,17 @@
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
-            
-            if(!email.includes('@')) return showToast("Email pro valide requis.", "error");
+
+            if (!email.includes('@')) return showToast("Email pro valide requis.", "error");
 
             btn.disabled = true;
             btn.innerText = "L'AGENT GÉNÈRE VOTRE AUDIT...";
 
+            const outilsCoches = [...document.querySelectorAll('.outil-checkbox:checked')].map(cb => cb.value);
+            const ambition = document.querySelector('input[name="ambition"]:checked')?.value || "";
+
             try {
-                const response = await fetch('https://outil-aia-automatisation.app.n8n.cloud/webhook-test/simulation-roi', {
+                const response = await fetch('https://outil-aia-automatisation.app.n8n.cloud/webhook/simulation-roi', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -518,7 +521,10 @@
                         frein: document.getElementById('frein').value,
                         profil: document.getElementById('profil').value,
                         equipe: document.getElementById('equipe').value,
-                        outils: "Scanné via formulaire", 
+                        metier: document.getElementById('metier').value,
+                        outils: outilsCoches.join(', ') || "Non précisés",
+                        nb_outils: outilsCoches.length,
+                        ambition: ambition,
                         objectif: "Optimisation de rentabilité"
                     })
                 });
@@ -526,16 +532,13 @@
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
 
-                // MAJ de l'interface résultats
                 document.getElementById('res-gain').innerText = result.gain.toLocaleString() + " €";
                 document.getElementById('res-roi').innerText = result.roi;
                 document.getElementById('res-heures').innerText = result.heures + " h";
-                document.getElementById('res-invest').innerText = result.investissement.toLocaleString() + " €";
 
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
-                
-                // On lance l'écriture de l'analyse
+
                 typeWriter(result.analyse, email);
 
             } catch (e) {
@@ -544,7 +547,6 @@
                 btn.innerText = "Réessayer l'envoi →";
             }
         }
-
         function typeWriter(text, email) {
             const container = document.getElementById('typewriter-text');
             container.innerHTML = ""; 
@@ -585,6 +587,7 @@
     </script>
 </body>
 </html>
+
 
 
 

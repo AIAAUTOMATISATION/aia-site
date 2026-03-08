@@ -278,6 +278,8 @@
             <div id="step1" class="text-left">
                 <p class="text-zinc-400 mb-8 italic text-sm text-center">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données."</p>
                 <div class="space-y-6">
+        
+                    <!-- LIGNE 1 : Temps / Structure / Équipe -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="relative">
                             <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Temps perdu / sem (h)</label>
@@ -295,6 +297,25 @@
                             <input type="number" id="equipe" value="1" min="1" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500 transition">
                         </div>
                     </div>
+
+                    <!-- LIGNE 2 : Métier -->
+                    <div class="relative">
+                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre métier</label>
+                        <select id="metier" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none">
+                            <option value="">Sélectionnez votre métier</option>
+                            <option value="consultant">Consultant / Coach</option>
+                            <option value="developpeur">Développeur web</option>
+                            <option value="graphiste">Graphiste / Designer</option>
+                            <option value="therapeute">Thérapeute / Santé</option>
+                            <option value="comptable">Comptable / Juridique</option>
+                            <option value="artisan">Artisan / BTP</option>
+                            <option value="commerce">Commerce / E-commerce</option>
+                            <option value="redacteur">Rédacteur / CM</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <!-- LIGNE 3 : Frein -->
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
                             <label class="block text-[10px] mono text-zinc-500 uppercase tracking-widest">Votre goulot d'étranglement majeur</label>
@@ -302,6 +323,38 @@
                         </div>
                         <textarea id="frein" oninput="updateWordCount()" placeholder="Ex: Je perds un temps fou à copier-coller mes factures depuis Excel vers Notion..." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
                     </div>
+
+                   <!-- LIGNE 4 : Outils actuels -->
+                    <div class="relative">
+                        <label class="block text-[10px] mono text-zinc-500 mb-4 uppercase tracking-widest">Vos outils actuels</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            {["Excel / Google Sheets", "Notion", "Airtable", "HubSpot", "Zapier / Make", "Gmail / Outlook", "Slack", "Autre"].map(outil => `
+                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="checkbox" value="${outil}" class="outil-checkbox w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">${outil}</span>
+                            </label>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- LIGNE 5 : Ambition -->
+                    <div class="relative">
+                        <label class="block text-[10px] mono text-zinc-500 mb-4 uppercase tracking-widest">Votre ambition</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="radio" name="ambition" value="Automatiser mes outils actuels" class="w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Garder mes outils et automatiser</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="radio" name="ambition" value="Migrer vers nouveaux outils + automatiser" class="w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Migrer vers nouveaux outils</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
+                                <input type="radio" name="ambition" value="Besoin de conseils" class="w-4 h-4 accent-blue-500">
+                                <span class="text-zinc-400 text-xs group-hover:text-white transition">J'ai besoin de conseils</span>
+                            </label>
+                        </div>
+                    </div>
+
                     <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase tracking-tighter shadow-2xl">
                         Calculer mon gain potentiel →
                     </button>
@@ -524,4 +577,5 @@
     </script>
 </body>
 </html>
+
 

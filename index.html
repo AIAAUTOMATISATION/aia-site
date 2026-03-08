@@ -65,7 +65,6 @@
 
         .toast.show { transform: translateX(0); }
         .toast-error { border-left-color: #ef4444; }
-        /* ------------------------ */
 
         .badge-target {
             padding: 4px 12px;
@@ -323,7 +322,9 @@
 
                 <div class="mb-12">
                     <h3 class="text-gradient text-2xl font-black italic uppercase mb-4">Audit Stratégique de l'IA :</h3>
-                    <div id="typewriter-text" class="text-zinc-400 text-sm leading-relaxed p-6 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[100px] shadow-inner"></div>
+                    <div id="typewriter-text" class="text-zinc-400 text-sm leading-relaxed p-6 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[100px] shadow-inner">
+                        Analyse en cours...
+                    </div>
                 </div>
 
                 <div id="booking-section" class="hidden opacity-0 transition-opacity duration-1000 mt-12 border-t border-white/5 pt-12">
@@ -367,7 +368,6 @@
         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
         Cal("init", "audit-ia", {origin:"https://app.cal.eu"});
 
-        // --- FONCTION TOAST ---
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -386,11 +386,9 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // ÉTAPE 1 -> 2
         function calculateLocal() {
             const tps = parseFloat(document.getElementById('temps').value);
             const frein = document.getElementById('frein').value;
-            
             if(!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
             if(frein.split(' ').length < 15) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
 
@@ -402,10 +400,8 @@
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('step2').classList.remove('hidden');
             window.location.hash = "audit";
-            showToast("Calcul local réussi !");
         }
 
-        // ÉTAPE 2 -> 3
         async function sendToN8N() {
             const btn = document.getElementById('finalSubmit');
             const email = document.getElementById('email').value;
@@ -429,29 +425,26 @@
 
                 const result = await response.json();
 
-                // --- SÉCURITÉ ANTI-CRASH ---
-                // On force 'analyse' à être une chaîne de caractères, quoi qu'il arrive
+                // Nettoyage de la variable analyse
                 let texteAnalyse = "";
                 if (Array.isArray(result.analyse)) {
-                    texteAnalyse = result.analyse[0] || "Analyse en cours...";
+                    texteAnalyse = result.analyse[0] || "Audit finalisé.";
                 } else {
-                    texteAnalyse = result.analyse || "Analyse en cours...";
+                    texteAnalyse = result.analyse || "Audit finalisé.";
                 }
 
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
         
-                // Affichage des chiffres
                 document.getElementById('res-gain').innerText = (result.gain || 0).toLocaleString() + " €";
                 document.getElementById('res-roi').innerText = result.roi || "0%";
                 document.getElementById('res-heures').innerText = (result.heures || 0) + " h";
 
-                // Lancement de l'écriture avec le texte sécurisé
                 typeWriter(texteAnalyse, email);
 
             } catch (e) {
-                console.error("Erreur détaillée:", e);
-                showToast("L'IA a rencontré une erreur technique.", "error");
+                console.error("Erreur:", e);
+                showToast("Erreur de communication avec l'IA. Réessayer.", "error");
                 btn.disabled = false;
                 btn.innerText = "Réessayer";
             }
@@ -459,6 +452,7 @@
 
         function typeWriter(text, email) {
             const container = document.getElementById('typewriter-text');
+            container.innerHTML = ""; // On vide le "Analyse en cours..."
             let i = 0;
             function type() {
                 if (i < text.length) {
@@ -483,6 +477,3 @@
     </script>
 </body>
 </html>
-
-
-

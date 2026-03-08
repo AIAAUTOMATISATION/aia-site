@@ -340,18 +340,24 @@
                     <!-- LIGNE 2 : Métier -->
                     <div class="relative">
                         <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre métier</label>
-                        <select id="metier" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none">
-                            <option value="">Sélectionnez votre métier</option>
-                            <option value="consultant">Consultant / Coach</option>
-                            <option value="developpeur">Développeur web</option>
-                            <option value="graphiste">Graphiste / Designer</option>
-                            <option value="therapeute">Thérapeute / Santé</option>
-                            <option value="comptable">Comptable / Juridique</option>
-                            <option value="artisan">Artisan / BTP</option>
-                            <option value="commerce">Commerce / E-commerce</option>
-                            <option value="redacteur">Rédacteur / CM</option>
-                            <option value="autre">Autre</option>
-                        </select>
+                        <div class="custom-select" id="select-metier">
+                            <div class="custom-select-trigger" onclick="toggleSelect('select-metier')">
+                                <span>Sélectionnez votre métier</span>
+                                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div class="custom-select-options">
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'consultant', 'Consultant / Coach')">Consultant / Coach</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'developpeur', 'Développeur web')">Développeur web</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'graphiste', 'Graphiste / Designer')">Graphiste / Designer</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'therapeute', 'Thérapeute / Santé')">Thérapeute / Santé</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'comptable', 'Comptable / Juridique')">Comptable / Juridique</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'artisan', 'Artisan / BTP')">Artisan / BTP</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'commerce', 'Commerce / E-commerce')">Commerce / E-commerce</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'redacteur', 'Rédacteur / CM')">Rédacteur / CM</div>
+                                <div class="custom-select-option" onclick="selectOption('select-metier', 'autre', 'Autre')">Autre</div>
+                            </div>
+                            <input type="hidden" id="metier" value="">
+                        </div>
                     </div>
 
                     <!-- LIGNE 3 : Frein -->
@@ -651,6 +657,7 @@
     </script>
 </body>
 </html>
+
 
 
 

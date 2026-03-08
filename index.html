@@ -434,7 +434,15 @@
 
                 if (!response.ok) throw new Error('Communication interrompue');
                 const result = await response.json();
-
+                
+                // --- INSERTION DU NETTOYAGE ICI ---
+                // 1. On nettoie le double % s'il existe
+                result.roi = result.roi.toString().replace('%%', '%'); 
+                
+                // 2. On supprime les mentions techniques que l'IA pourrait laisser
+                result.analyse = result.analyse.replace(/### AUDIT CLIENT|AUDIT CLIENT :|BRIEFING INTERNE :|\*\*BRIEFING INTERNE\*\*|\*\*AUDIT CLIENT\*\*/gi, '');
+                // ----------------------------------
+                
                 document.getElementById('step2').classList.add('hidden');
                 document.getElementById('step-results').classList.remove('hidden');
                 
@@ -482,4 +490,5 @@
     </script>
 </body>
 </html>
+
 

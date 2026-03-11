@@ -279,7 +279,7 @@
                 <div class="step-indicator"></div>
                 <div class="mono text-[10px] text-zinc-600 mb-4 uppercase tracking-[0.3em]">01. Audit</div>
                 <h3 class="step-title mb-6 uppercase italic relative z-10">Analyser</h3>
-                <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Identification des goulots d'étranglement et de votre potentiel réel.</p>
+                <p class="text-zinc-400 text-sm leading-relaxed relative z-10">Identification de vos tâches les plus chronophages sans valeur ajoutée et de votre potentiel réel.</p>
                 <div class="step-bg-text">A</div>
             </div>
             <div class="step-card">
@@ -363,8 +363,8 @@
                     <!-- LIGNE 3 : Frein -->
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
-                            <label class="block text-[10px] mono text-zinc-500 uppercase tracking-widest">Votre goulot d'étranglement majeur</label>
-                            <span id="word-count" class="text-[9px] mono text-red-500 uppercase">0 / 20 mots</span>
+                            <label class="block text-[10px] mono text-zinc-500 uppercase tracking-widest">Votre tâche la plus chronophage</label>
+                            <span id="word-count" class="text-[9px] mono text-red-500 uppercase">0 / 15 mots</span>
                         </div>
                         <textarea id="frein" oninput="updateWordCount()" placeholder="Ex: Chaque semaine je relance manuellement mes clients en attente, je ressaisis leurs informations dans mon outil de suivi et je réponds aux mêmes questions récurrentes — facilement 3h perdues qui pourraient être automatisées." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
                     </div>
@@ -534,8 +534,8 @@
             const text = document.getElementById('frein').value.trim();
             const words = text ? text.split(/\s+/).length : 0;
             const display = document.getElementById('word-count');
-            display.innerText = `${words} / 20 mots`;
-            display.className = words >= 20 ? "text-[9px] mono text-emerald-500 uppercase" : "text-[9px] mono text-red-500 uppercase";
+            display.innerText = `${words} / 15 mots`;
+            display.className = words >= 15 ? "text-[9px] mono text-emerald-500 uppercase" : "text-[9px] mono text-red-500 uppercase";
         }
 
         function toggleMentions() {
@@ -596,7 +596,7 @@
             const ambition = document.querySelector('input[name="ambition"]:checked');
 
             if (!tps) return showToast("Veuillez saisir le nombre d'heures.", "error");
-            if (words < 20) return showToast("Détaillez un peu plus votre goulot d'étranglement (min 20 mots).", "error");
+            if(words < 15) return showToast("Décrivez un peu plus cette tâche (min 15 mots).", "error");
             if (!ambition) return showToast("Veuillez sélectionner votre ambition.", "error");
 
             // Collecte des outils cochés
@@ -703,6 +703,7 @@
     </script>
 </body>
 </html>
+
 
 
 

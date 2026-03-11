@@ -339,25 +339,37 @@
 
                     <!-- LIGNE 2 : Métier -->
                     <div class="relative">
-                        <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre métier</label>
-                        <div class="custom-select" id="select-metier">
-                            <div class="custom-select-trigger" onclick="toggleSelect('select-metier')">
-                                <span>Sélectionnez votre métier</span>
-                                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                            </div>
-                            <div class="custom-select-options">
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'consultant', 'Consultant / Coach')">Consultant / Coach</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'developpeur', 'Développeur web')">Développeur web</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'graphiste', 'Graphiste / Designer')">Graphiste / Designer</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'therapeute', 'Thérapeute / Santé')">Thérapeute / Santé</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'comptable', 'Comptable / Juridique')">Comptable / Juridique</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'artisan', 'Artisan / BTP')">Artisan / BTP</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'commerce', 'Commerce / E-commerce')">Commerce / E-commerce</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'redacteur', 'Rédacteur / CM')">Rédacteur / CM</div>
-                                <div class="custom-select-option" onclick="selectOption('select-metier', 'autre', 'Autre')">Autre</div>
-                            </div>
-                            <input type="hidden" id="metier" value="">
-                        </div>
+                      <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre métier</label>
+                      <select id="metier" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none">
+                        <option value="">Sélectionnez votre métier</option>
+                        <optgroup label="Conseil & Expertise">
+                          <option value="consultant">Consultant</option>
+                          <option value="coach">Coach / Formateur</option>
+                          <option value="comptable">Comptable / Expert-comptable</option>
+                          <option value="juridique">Avocat / Juriste</option>
+                        </optgroup>
+                        <optgroup label="Santé & Bien-être">
+                          <option value="therapeute">Thérapeute / Psychologue</option>
+                          <option value="sante">Médecin / Kiné / Ostéo</option>
+                        </optgroup>
+                        <optgroup label="Digital & Tech">
+                          <option value="developpeur">Développeur</option>
+                          <option value="designer">Designer / Graphiste</option>
+                          <option value="community">Community Manager</option>
+                          <option value="redacteur">Rédacteur / Copywriter</option>
+                        </optgroup>
+                        <optgroup label="Commerce & E-commerce">
+                          <option value="ecommerce">E-commerce</option>
+                          <option value="commerce">Commerce / Retail</option>
+                        </optgroup>
+                        <optgroup label="Artisanat & BTP">
+                          <option value="artisan">Artisan</option>
+                          <option value="btp">BTP / Construction</option>
+                        </optgroup>
+                        <optgroup label="Autre">
+                          <option value="autre">Autre</option>
+                        </optgroup>
+                      </select>
                     </div>
 
                     <!-- LIGNE 3 : Frein -->
@@ -707,6 +719,7 @@
     </script>
 </body>
 </html>
+
 
 
 

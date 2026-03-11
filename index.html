@@ -371,41 +371,45 @@
 
                    <!-- LIGNE 4 : Outils actuels -->
                     <div class="relative">
-                        <label class="block text-[10px] mono text-zinc-500 mb-4 uppercase tracking-widest">Vos outils actuels</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Excel / Google Sheets" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Excel / Google Sheets</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Notion" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Notion</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Airtable" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Airtable</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="HubSpot" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">HubSpot</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Zapier / Make" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Zapier / Make</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Gmail / Outlook" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Gmail / Outlook</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Slack" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Slack</span>
-                            </label>
-                            <label class="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition group">
-                                <input type="checkbox" value="Autre" class="outil-checkbox w-4 h-4 accent-blue-500">
-                                <span class="text-zinc-400 text-xs group-hover:text-white transition">Autre</span>
-                            </label>
-                        </div>
+                      <label class="block text-[10px] mono text-zinc-500 mb-3 uppercase tracking-widest">Outils actuels</label>
+                      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="outils-grid">
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Excel / Google Sheets" class="outil-check accent-blue-500"> Excel / Sheets
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Gmail / Outlook" class="outil-check accent-blue-500"> Gmail / Outlook
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Notion" class="outil-check accent-blue-500"> Notion
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Airtable" class="outil-check accent-blue-500"> Airtable
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="HubSpot" class="outil-check accent-blue-500"> HubSpot
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Calendly" class="outil-check accent-blue-500"> Calendly
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Doctolib" class="outil-check accent-blue-500"> Doctolib
+                       </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Pennylane / Sellsy" class="outil-check accent-blue-500"> Pennylane / Sellsy
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Trello / Asana" class="outil-check accent-blue-500"> Trello / Asana
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="WooCommerce / Prestashop" class="outil-check accent-blue-500"> WooCommerce
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Slack" class="outil-check accent-blue-500"> Slack
+                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
+                          <input type="checkbox" value="Autre" class="outil-check accent-blue-500"> Autre
+                        </label>
+                      </div>
                     </div>
 
                     <!-- LIGNE 5 : Ambition -->
@@ -703,6 +707,7 @@
     </script>
 </body>
 </html>
+
 
 
 

@@ -18,22 +18,50 @@
         .toast-error { border-left-color: #ef4444; }
         .badge-target { padding: 4px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #a1a1aa; }
         #typewriter-text { white-space: pre-line; color: #e4e4e7; }
+
+        /* ORBIT ANIMATIONS */
         @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
         .orbit-item { animation: float 6s ease-in-out infinite; }
         .orbit-item:nth-child(2) { animation-delay: 1.5s; }
         .orbit-item:nth-child(3) { animation-delay: 3s; }
         .orbit-item:nth-child(4) { animation-delay: 4.5s; }
-        .orbit-title { color: #27272a; transition: all 0.6s cubic-bezier(0.23,1,0.32,1); }
-        .orbit-item:hover .orbit-title { color: #ffffff; transform: scale(1.05); }
+
+        /* Orbit title — état de base visible, s'illumine au scroll */
+        .orbit-title {
+            color: #27272a;
+            transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+        }
+        .orbit-item.in-view .orbit-title,
+        .orbit-item:hover .orbit-title {
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .orbit-item.in-view .orbit-glow,
         .orbit-item:hover .orbit-glow { opacity: 0.6; }
+
+        .orbit-item .orbit-desc {
+            opacity: 1;
+            transition: all 0.5s;
+        }
+        @media (min-width: 1024px) {
+            .orbit-item .orbit-desc { opacity: 0; }
+            .orbit-item.in-view .orbit-desc,
+            .orbit-item:hover .orbit-desc { opacity: 1; }
+        }
+
+        /* STEP CARDS */
         .step-card { position: relative; padding: 30px 20px; background: rgba(255,255,255,0.02); border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.6s cubic-bezier(0.23,1,0.32,1); overflow: hidden; }
         @media (min-width: 1024px) { .step-card { padding: 40px; } }
         .step-bg-text { position: absolute; right: -5px; bottom: -10px; font-size: 80px; font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.03); transition: all 0.8s ease; z-index: 0; }
+        .step-card.in-view .step-bg-text,
         .step-card:hover .step-bg-text { -webkit-text-stroke: 0px transparent; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.25; transform: translateY(-10px) scale(1.05); }
         .step-indicator { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--grad); transform: scaleY(0); transition: transform 0.4s ease; transform-origin: bottom; }
+        .step-card.in-view .step-indicator,
         .step-card:hover .step-indicator { transform: scaleY(1); }
         .step-title { font-size: 1.5rem; font-weight: 900; color: white; transition: 0.3s; }
+        .step-card.in-view .step-title,
         .step-card:hover .step-title { color: #00B8D9; }
+
         .btn-grad { background: var(--grad); background-size: 200% auto; transition: 0.5s; color: white; border-radius: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; }
         .btn-grad:hover { background-position: right center; box-shadow: 0 10px 30px rgba(46,108,246,0.3); }
         .hero-glow { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(46,108,246,0.15) 0%, transparent 70%); top: -100px; left: 50%; transform: translateX(-50%); z-index: -1; }
@@ -73,30 +101,21 @@
         <span class="badge-target">Freelances</span>
         <span class="badge-target">Indépendants</span>
     </div>
-    <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter leading-[1.1] mb-6 text-white">
+    <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold tracking-tighter leading-[1.1] mb-10 text-white">
         Éliminez vos tâches répétitives.<br>
         <span class="text-gradient">Reprenez le contrôle de votre temps.</span>
     </h1>
-    <p class="text-sm sm:text-base font-bold text-zinc-400 uppercase tracking-widest mb-6 mono">
-        Solo, équipe de 2 ou structure de 10 — le résultat est le même.
-    </p>
     <p class="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-12 leading-relaxed">
         Nous bâtissons des agents IA qui deviennent une extension de votre équipe.<br class="hidden md:block">
         Ils travaillent 24/7. <span class="text-zinc-300">Vous pilotez sans effort.</span>
     </p>
-    <div class="flex flex-wrap justify-center items-center gap-8 mb-12 opacity-40 grayscale hover:grayscale-0 transition duration-500">
-        <span class="mono text-[10px] uppercase tracking-widest text-zinc-400 w-full mb-2">Expertises technologiques :</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/OpenAI_Logo.svg" alt="OpenAI" class="h-5 invert">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Zapier_logo.svg" alt="Zapier" class="h-5 invert">
-        <img src="https://cdn.worldvectorlogo.com/logos/make-1.svg" alt="Make" class="h-5">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg" alt="Notion" class="h-5 invert">
-    </div>
     <div class="flex flex-col items-center gap-4">
         <a href="#audit" class="btn-grad w-full sm:w-auto sm:inline-flex px-12 py-5 text-lg shadow-2xl">Déployer mon agent</a>
         <p class="text-xs md:text-sm text-zinc-500 italic">L'agent IA scannera votre écosystème en 60 secondes.</p>
     </div>
 </section>
 
+<!-- SECTION CAPABILITIES -->
 <section class="max-w-7xl mx-auto px-6 py-24 relative z-10">
     <div class="text-center mb-24">
         <h2 class="text-xs mono tracking-[0.4em] text-zinc-600 uppercase mb-4">Core Capabilities</h2>
@@ -107,29 +126,30 @@
             <div class="orbit-glow absolute -inset-8 bg-blue-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
             <span class="mono text-[10px] text-blue-500 block mb-2 opacity-40">01. ASSISTANCE</span>
             <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Agents<br>Conversations</h3>
-            <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">Qualification de leads et support client 24/7 en autonomie totale sur vos canaux.</p>
+            <p class="orbit-desc w-full lg:w-64 text-[11px] text-zinc-500 mt-6 italic leading-relaxed">Qualification de leads et support client 24/7 en autonomie totale sur vos canaux.</p>
         </div>
         <div class="orbit-item group relative text-center lg:text-left">
             <div class="orbit-glow absolute -inset-8 bg-purple-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
             <span class="mono text-[10px] text-purple-500 block mb-2 opacity-40">02. DATA</span>
             <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Lecture de<br>Documents</h3>
-            <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">Extraction intelligente de données sur PDF, factures et contrats complexes.</p>
+            <p class="orbit-desc w-full lg:w-64 text-[11px] text-zinc-500 mt-6 italic leading-relaxed">Extraction intelligente de données sur PDF, factures et contrats complexes.</p>
         </div>
         <div class="orbit-item group relative text-center lg:text-left">
             <div class="orbit-glow absolute -inset-8 bg-emerald-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
             <span class="mono text-[10px] text-emerald-500 block mb-2 opacity-40">03. SCALE</span>
             <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Workflows<br>Métier</h3>
-            <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">Synchronisation de vos outils SaaS pour automatiser vos processus de A à Z.</p>
+            <p class="orbit-desc w-full lg:w-64 text-[11px] text-zinc-500 mt-6 italic leading-relaxed">Synchronisation de vos outils SaaS pour automatiser vos processus de A à Z.</p>
         </div>
         <div class="orbit-item group relative text-center lg:text-left">
             <div class="orbit-glow absolute -inset-8 bg-red-600/20 blur-[50px] rounded-full opacity-0 transition-opacity duration-700 pointer-events-none"></div>
             <span class="mono text-[10px] text-red-500 block mb-2 opacity-40">04. PRODUCTIVITY</span>
             <h3 class="orbit-title text-3xl md:text-5xl font-black uppercase leading-none cursor-default">Smart<br>Mailing</h3>
-            <p class="lg:absolute lg:top-full lg:left-0 w-full lg:w-64 text-[11px] text-zinc-500 mt-6 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-500 italic leading-relaxed">Tri prédictif et assistance à la rédaction pour vos boîtes mails saturées.</p>
+            <p class="orbit-desc w-full lg:w-64 text-[11px] text-zinc-500 mt-6 italic leading-relaxed">Tri prédictif et assistance à la rédaction pour vos boîtes mails saturées.</p>
         </div>
     </div>
 </section>
 
+<!-- SECTION STEPS -->
 <section class="max-w-7xl mx-auto px-6 py-12 md:py-20 border-t border-white/5 relative z-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="step-card">
@@ -156,9 +176,9 @@
     </div>
 </section>
 
+<!-- SECTION AUDIT -->
 <section id="audit" class="py-24 px-4 sm:px-6 relative z-20">
     <div class="max-w-5xl mx-auto bg-[#0a0a0a] border border-white/5 rounded-[40px] p-8 md:p-12 relative shadow-2xl text-center">
-
         <div class="flex items-center justify-center gap-3 mb-10 border-b border-white/5 pb-6">
             <div class="w-3 h-3 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_#3b82f6]"></div>
             <span class="text-[10px] mono text-blue-500 uppercase tracking-widest font-bold">Agent AIA Opérationnel</span>
@@ -168,8 +188,6 @@
         <div id="step1" class="text-left">
             <p class="text-zinc-400 mb-8 italic text-sm text-center">"Bonjour. Pour évaluer votre potentiel de libération de temps, j'ai besoin de quelques données."</p>
             <div class="space-y-6">
-
-                <!-- Ligne 1 : Temps / Structure / Équipe -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="relative">
                         <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Temps perdu / sem (h)</label>
@@ -194,8 +212,6 @@
                         <input type="number" id="equipe" value="1" min="1" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white outline-none focus:border-blue-500 transition">
                     </div>
                 </div>
-
-                <!-- Ligne 2 : Métier -->
                 <div class="relative">
                     <label class="block text-[10px] mono text-zinc-500 mb-2 uppercase tracking-widest">Votre métier</label>
                     <select id="metier" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-zinc-400 outline-none focus:border-blue-500 transition appearance-none cursor-pointer">
@@ -229,8 +245,6 @@
                         </optgroup>
                     </select>
                 </div>
-
-                <!-- Ligne 3 : Frein -->
                 <div class="relative">
                     <div class="flex justify-between items-center mb-2">
                         <label class="block text-[10px] mono text-zinc-500 uppercase tracking-widest">Votre tâche la plus chronophage</label>
@@ -238,51 +252,23 @@
                     </div>
                     <textarea id="frein" oninput="updateWordCount()" placeholder="Ex: Chaque semaine je relance manuellement mes clients en attente, je ressaisis leurs informations dans mon outil de suivi et je réponds aux mêmes questions récurrentes — facilement 3h perdues qui pourraient être automatisées." class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-white h-32 outline-none focus:border-blue-500 transition"></textarea>
                 </div>
-
-                <!-- Ligne 4 : Outils -->
                 <div class="relative">
                     <label class="block text-[10px] mono text-zinc-500 mb-3 uppercase tracking-widest">Outils actuels</label>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Excel / Google Sheets" class="outil-check accent-blue-500"> Excel / Sheets
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Gmail / Outlook" class="outil-check accent-blue-500"> Gmail / Outlook
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Notion" class="outil-check accent-blue-500"> Notion
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Airtable" class="outil-check accent-blue-500"> Airtable
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="HubSpot" class="outil-check accent-blue-500"> HubSpot
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Calendly" class="outil-check accent-blue-500"> Calendly
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Doctolib" class="outil-check accent-blue-500"> Doctolib
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Pennylane / Sellsy" class="outil-check accent-blue-500"> Pennylane / Sellsy
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Trello / Asana" class="outil-check accent-blue-500"> Trello / Asana
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="WooCommerce / Prestashop" class="outil-check accent-blue-500"> WooCommerce
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Slack" class="outil-check accent-blue-500"> Slack
-                        </label>
-                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400">
-                            <input type="checkbox" value="Autre" class="outil-check accent-blue-500"> Autre
-                        </label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Excel / Google Sheets" class="outil-check accent-blue-500"> Excel / Sheets</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Gmail / Outlook" class="outil-check accent-blue-500"> Gmail / Outlook</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Notion" class="outil-check accent-blue-500"> Notion</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Airtable" class="outil-check accent-blue-500"> Airtable</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="HubSpot" class="outil-check accent-blue-500"> HubSpot</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Calendly" class="outil-check accent-blue-500"> Calendly</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Doctolib" class="outil-check accent-blue-500"> Doctolib</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Pennylane / Sellsy" class="outil-check accent-blue-500"> Pennylane / Sellsy</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Trello / Asana" class="outil-check accent-blue-500"> Trello / Asana</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="WooCommerce / Prestashop" class="outil-check accent-blue-500"> WooCommerce</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Slack" class="outil-check accent-blue-500"> Slack</label>
+                        <label class="flex items-center gap-2 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:border-blue-500 transition text-sm text-zinc-400"><input type="checkbox" value="Autre" class="outil-check accent-blue-500"> Autre</label>
                     </div>
                 </div>
-
-                <!-- Ligne 5 : Ambition -->
                 <div class="relative">
                     <label class="block text-[10px] mono text-zinc-500 mb-4 uppercase tracking-widest">Votre ambition</label>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -300,10 +286,7 @@
                         </label>
                     </div>
                 </div>
-
-                <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase tracking-tighter shadow-2xl">
-                    Calculer mon gain potentiel →
-                </button>
+                <button onclick="calculateLocal()" class="w-full py-6 btn-grad text-lg font-black uppercase tracking-tighter shadow-2xl">Calculer mon gain potentiel →</button>
                 <p class="text-[9px] text-center text-zinc-600 uppercase mono">Vos données sont sécurisées et non-stockées sans votre accord.</p>
             </div>
         </div>
@@ -346,9 +329,7 @@
                     <h3 class="text-gradient text-2xl font-black italic uppercase">Audit Stratégique de l'IA :</h3>
                     <button onclick="location.reload()" class="text-[9px] mono text-zinc-500 uppercase hover:text-white transition">Nouvelle simulation</button>
                 </div>
-                <div id="typewriter-text" class="text-zinc-200 text-sm md:text-base leading-relaxed p-6 md:p-10 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[150px] shadow-inner">
-                    Analyse en cours...
-                </div>
+                <div id="typewriter-text" class="text-zinc-200 text-sm md:text-base leading-relaxed p-6 md:p-10 bg-white/[0.02] border border-white/5 rounded-3xl italic min-h-[150px] shadow-inner">Analyse en cours...</div>
             </div>
             <div id="booking-section" class="hidden opacity-0 transition-opacity duration-1000 mt-12 border-t border-white/5 pt-12">
                 <div class="text-center mb-10">
@@ -358,7 +339,6 @@
                 <div id="my-cal-inline-audit-ia" class="rounded-3xl bg-white overflow-hidden shadow-2xl" style="width:100%;height:600px;overflow:scroll"></div>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -377,9 +357,7 @@
         <div class="space-y-6 text-sm text-zinc-400 leading-relaxed text-left">
             <div>
                 <p class="text-white font-bold mono text-xs uppercase mb-2">Éditeur du site</p>
-                <p>AIA AUTOMATISATION / PLANCKE Arnaud<br>
-                1442 ROUTE du Steent'je, 59270 Bailleul, FRANCE<br>
-                SIREN : 101 903 342</p>
+                <p>AIA AUTOMATISATION / PLANCKE Arnaud<br>1442 ROUTE du Steent'je, 59270 Bailleul, FRANCE<br>SIREN : 101 903 342</p>
                 <p class="mt-2">Contact : contact@aia-automatisation.fr</p>
             </div>
         </div>
@@ -388,8 +366,28 @@
 </div>
 
 <script type="text/javascript">
+    // Cal.com init
     (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.eu/embed/embed.js", "init");
 
+    // ---- INTERSECTION OBSERVER — scroll animations ----
+    const observerOptions = { threshold: 0.25, rootMargin: '0px 0px -50px 0px' };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                // Retire in-view quand l'élément sort du viewport (optionnel — re-joue l'anim au scroll retour)
+                entry.target.classList.remove('in-view');
+            }
+        });
+    }, observerOptions);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.orbit-item, .step-card').forEach(el => observer.observe(el));
+    });
+
+    // ---- TOASTS ----
     function showToast(message, type = 'info') {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
@@ -426,18 +424,13 @@
 
     function selectOption(selectId, value, label) {
         const select = document.getElementById(selectId);
-        const trigger = select.querySelector('.custom-select-trigger span');
-        const hidden = select.querySelector('input[type="hidden"]');
-        const options = select.querySelectorAll('.custom-select-option');
-        const optionsContainer = select.querySelector('.custom-select-options');
-        const triggerEl = select.querySelector('.custom-select-trigger');
-        trigger.textContent = label;
-        hidden.value = value;
-        trigger.style.color = 'white';
-        options.forEach(opt => opt.classList.remove('selected'));
+        select.querySelector('.custom-select-trigger span').textContent = label;
+        select.querySelector('.custom-select-trigger span').style.color = 'white';
+        select.querySelector('input[type="hidden"]').value = value;
+        select.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.remove('selected'));
         event.target.classList.add('selected');
-        optionsContainer.classList.remove('open');
-        triggerEl.classList.remove('active');
+        select.querySelector('.custom-select-options').classList.remove('open');
+        select.querySelector('.custom-select-trigger').classList.remove('active');
     }
 
     document.addEventListener('click', function(e) {
@@ -476,13 +469,11 @@
     async function sendToN8N() {
         const btn = document.getElementById('finalSubmit');
         const email = document.getElementById('email').value;
-
         if (!email.includes('@')) return showToast("Email pro valide requis.", "error");
 
         btn.disabled = true;
         btn.innerText = "L'AGENT GÉNÈRE VOTRE AUDIT...";
 
-        // FIX : classe correcte .outil-check
         const outilsCoches = [...document.querySelectorAll('.outil-check:checked')].map(cb => cb.value);
         const ambition = document.querySelector('input[name="ambition"]:checked')?.value || "";
 
@@ -510,10 +501,8 @@
             document.getElementById('res-gain').innerText = result.gain.toLocaleString() + " €";
             document.getElementById('res-heures').innerText = result.heures + " h";
             document.getElementById('res-rentabilisation').innerText = result.rentabilisation + " jours";
-
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step-results').classList.remove('hidden');
-
             typeWriter(result.analyse, email);
 
         } catch (e) {
@@ -529,13 +518,10 @@
         let i = 0;
         function type() {
             if (i < text.length) {
-                const char = text.charAt(i);
-                container.innerHTML += (char === '\n') ? '<br>' : char;
+                container.innerHTML += (text.charAt(i) === '\n') ? '<br>' : text.charAt(i);
                 i++;
                 setTimeout(type, 8);
-            } else {
-                showBooking(email);
-            }
+            } else { showBooking(email); }
         }
         type();
     }
@@ -545,12 +531,7 @@
         bookingSection.classList.remove('hidden');
         setTimeout(() => { bookingSection.style.opacity = "1"; }, 100);
         Cal("init", "audit-ia", {origin:"https://app.cal.eu"});
-        Cal("inline", {
-            elementOrSelector: "#my-cal-inline-audit-ia",
-            calLink: "aia-automatisation/audit-ia",
-            layout: "month_view",
-            config: { email: email }
-        });
+        Cal("inline", { elementOrSelector: "#my-cal-inline-audit-ia", calLink: "aia-automatisation/audit-ia", layout: "month_view", config: { email: email } });
     }
 </script>
 </body>

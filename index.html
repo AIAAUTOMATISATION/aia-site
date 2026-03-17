@@ -928,18 +928,15 @@
         const words    = frein.trim().split(/\s+/).length;
         const ambition = document.querySelector('input[name="ambition"]:checked');
         const metier   = document.getElementById('metier').value;
-
         if (!tps)       return showToast("Veuillez saisir le nombre d'heures.", "error");
         if (words < 15) return showToast("Décrivez un peu plus cette tâche (min 15 mots).", "error");
         if (!metier)    return showToast("Veuillez sélectionner votre métier.", "error");
         if (!ambition)  return showToast("Veuillez sélectionner votre ambition.", "error");
-
         // ── Calcul instantané local ──
         const gainSem = Math.round(tps * 60);
         const gainAn  = Math.round(gainSem * 48);
         countUp('local-gain-semaine', gainSem, ' €');
-        countUp('local-gain', gainAn, ' €');
-
+        countUpWhite('local-gain', gainAn, ' €');
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');
         window.location.hash = 'audit';
@@ -948,6 +945,21 @@
     function countUp(id, target, suffix) {
         const el = document.getElementById(id);
         if (!el) return;
+        const start = performance.now(), dur = 900;
+        function step(ts) {
+            const p = Math.min((ts - start) / dur, 1);
+            const ease = 1 - Math.pow(1 - p, 3);
+            el.innerText = Math.round(ease * target).toLocaleString('fr-FR') + suffix;
+            if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    function countUpWhite(id, target, suffix) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.style.webkitTextFillColor = 'white';
+        el.style.backgroundClip = 'unset';
         const start = performance.now(), dur = 900;
         function step(ts) {
             const p = Math.min((ts - start) / dur, 1);

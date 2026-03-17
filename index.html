@@ -937,8 +937,8 @@
         // ── Calcul instantané local ──
         const gainSem = Math.round(tps * 60);
         const gainAn  = Math.round(gainSem * 48);
-        document.getElementById('local-gain-semaine').innerText = gainSem.toLocaleString('fr-FR') + ' €';
-        document.getElementById('local-gain').innerText         = gainAn.toLocaleString('fr-FR') + ' €';
+        countUp('local-gain-semaine', gainSem, ' €');
+        countUp('local-gain', gainAn, ' €');
 
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');

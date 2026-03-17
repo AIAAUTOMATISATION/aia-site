@@ -923,25 +923,16 @@
 
     // ── CALCULATE LOCAL ──
     function calculateLocal() {
-        const tps = parseFloat(document.getElementById('temps').value);
-        const frein = document.getElementById('frein').value;
-        const words = frein.trim().split(/\s+/).length;
+        const tps      = parseFloat(document.getElementById('temps').value);
+        const frein    = document.getElementById('frein').value;
+        const words    = frein.trim().split(/\s+/).length;
         const ambition = document.querySelector('input[name="ambition"]:checked');
-        const metier = document.getElementById('metier').value;
+       const metier   = document.getElementById('metier').value;
 
-        if (!tps)        return showToast("Veuillez saisir le nombre d'heures.", "error");
-        if (words < 15)  return showToast("Décrivez un peu plus cette tâche (min 15 mots).", "error");
-        if (!metier)     return showToast("Veuillez sélectionner votre métier.", "error");
-        if (!ambition)   return showToast("Veuillez sélectionner votre ambition.", "error");
-
-        const taux   = document.getElementById('profil').value === "TPE" ? 70 : 60;
-        const equipe = parseFloat(document.getElementById('equipe').value) || 1;
-        const gainSemaine = Math.round(tps * taux * equipe);
-        const gainAnnuel  = gainSemaine * 48;
-
-        // Animate count-up
-        countUp('local-gain-semaine', gainSemaine, ' €');
-        countUp('local-gain', gainAnnuel, ' €');
+        if (!tps)       return showToast("Veuillez saisir le nombre d'heures.", "error");
+        if (words < 15) return showToast("Décrivez un peu plus cette tâche (min 15 mots).", "error");
+        if (!metier)    return showToast("Veuillez sélectionner votre métier.", "error");
+        if (!ambition)  return showToast("Veuillez sélectionner votre ambition.", "error");
 
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');
@@ -993,7 +984,7 @@
             if (!res.ok) throw new Error();
             const result = await res.json();
 
-            document.getElementById('res-gain').innerText           = result.gain.toLocaleString('fr-FR') + ' €';
+            document.getElementById('res-gain').innerText = result.gain.toLocaleString('fr-FR') + ' €';
             document.getElementById('res-heures').innerText         = result.heures + ' h';
             document.getElementById('res-rentabilisation').innerText = result.rentabilisation + ' jours';
 

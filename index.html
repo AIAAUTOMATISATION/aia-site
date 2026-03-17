@@ -927,12 +927,18 @@
         const frein    = document.getElementById('frein').value;
         const words    = frein.trim().split(/\s+/).length;
         const ambition = document.querySelector('input[name="ambition"]:checked');
-       const metier   = document.getElementById('metier').value;
+        const metier   = document.getElementById('metier').value;
 
         if (!tps)       return showToast("Veuillez saisir le nombre d'heures.", "error");
         if (words < 15) return showToast("Décrivez un peu plus cette tâche (min 15 mots).", "error");
         if (!metier)    return showToast("Veuillez sélectionner votre métier.", "error");
         if (!ambition)  return showToast("Veuillez sélectionner votre ambition.", "error");
+
+        // ── Calcul instantané local ──
+        const gainSem = Math.round(tps * 60);
+        const gainAn  = Math.round(gainSem * 48);
+        document.getElementById('local-gain-semaine').innerText = gainSem.toLocaleString('fr-FR') + ' €';
+        document.getElementById('local-gain').innerText         = gainAn.toLocaleString('fr-FR') + ' €';
 
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.remove('hidden');

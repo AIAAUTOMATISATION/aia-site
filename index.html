@@ -1015,9 +1015,9 @@
             typeWriter(result.analyse, email);
 
         } catch(e) {
-            showToast("Erreur de connexion avec l'IA. Réessayez.", "error");
+             showToast("Votre demande n'a pas pu être traitée. Vérifiez le contenu de votre description.", "error");
             btn.disabled  = false;
-            btn.innerText = "Réessayer l'envoi →";
+            btn.innerText = "Modifier ma description →";
         }
     }
 

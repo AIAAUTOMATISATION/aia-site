@@ -987,7 +987,7 @@
         const ambition = document.querySelector('input[name="ambition"]:checked')?.value || '';
 
         try {
-            const res = await fetch('https://n8n.aia-automatisation.fr/webhook-test/simulation-roi', {
+            const res = await fetch('https://n8n.aia-automatisation.fr/webhook/simulation-roi', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

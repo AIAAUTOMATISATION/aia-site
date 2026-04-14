@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aia-automatisation.fr/sitemap.xml

@@ -1380,6 +1380,37 @@
         requestAnimationFrame(step);
     }
 
+    // -- TRACKING ORIGINE PROSPECTION --
+    // Capture les param\u00e8tres URL (pf, utm_*) au chargement de la page
+    // et les persiste en sessionStorage. Permet \u00e0 AIA de relier le lead cr\u00e9\u00e9
+    // au prospect froid d'origine (kanban Prospection AIA) et de mesurer
+    // l'efficacit\u00e9 par canal d'outreach.
+    (function captureTracking() {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const trackingKeys = ['pf', 'utm_source', 'utm_medium', 'utm_campaign'];
+            const tracking = {};
+            for (const k of trackingKeys) {
+                const v = params.get(k);
+                if (v) tracking[k] = v;
+            }
+            if (Object.keys(tracking).length > 0) {
+                sessionStorage.setItem('aia_tracking', JSON.stringify(tracking));
+            }
+        } catch (e) {
+            console.warn('[AIA tracking] capture failed:', e);
+        }
+    })();
+
+    function getTracking() {
+        try {
+            const raw = sessionStorage.getItem('aia_tracking');
+            return raw ? JSON.parse(raw) : {};
+        } catch {
+            return {};
+        }
+    }
+
     // -- SEND TO N8N --
     async function sendToN8N() {
         const btn   = document.getElementById('finalSubmit');
@@ -1391,6 +1422,7 @@
 
         const outilsCoches = [...document.querySelectorAll('.outil-check:checked')].map(cb => cb.value);
         const ambition = document.querySelector('input[name="ambition"]:checked')?.value || '';
+        const tracking = getTracking();
 
         try {
             const res = await fetch('https://n8n.aia-automatisation.fr/webhook/simulation-roi', {
@@ -1406,7 +1438,9 @@
                     outils:    outilsCoches.join(', ') || 'Non pr\u00e9cis\u00e9s',
                     nb_outils: outilsCoches.length,
                     ambition,
-                    objectif:  'Optimisation de rentabilit\u00e9'
+                    objectif:  'Optimisation de rentabilit\u00e9',
+                    // Tracking origine prospection (transmis par AIA outreach)
+                    ...tracking
                 })
             });
             if (!res.ok) throw new Error();

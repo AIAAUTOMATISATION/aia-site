@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AIA Automatisation | Automatisation IA sur-mesure pour TPE et Freelances</title>
-    <meta name="description" content="Automatisation IA sur-mesure pour TPE, freelances et independants. Gagnez 10h+ par semaine. Audit gratuit en 60 secondes.">
-    <meta name="keywords" content="automatisation, IA, intelligence artificielle, TPE, freelance, independant, gain de temps, workflow, n8n">
+    <title>AIA Automatisation | Automatisation IA pour coachs, freelances, agences (Lille, Hauts-de-France)</title>
+    <meta name="description" content="Automatisation IA sur-mesure pour coachs sportifs, freelances service, agences et PME. Récupérez 8 à 15h/semaine sur l'admin invisible. Calcul ROI gratuit en 90 secondes.">
+    <meta name="keywords" content="automatisation coach sportif, automatisation freelance, automatisation agence, automatisation PME, gain de temps, workflow n8n, IA admin, automatisation Lille, Hauts-de-France, consulting automatisation">
     <meta name="author" content="AIA Automatisation">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://aia-automatisation.fr/">
+    <meta name="geo.region" content="FR-HDF">
+    <meta name="geo.placename" content="Bailleul, Lille, Hauts-de-France">
+    <meta name="geo.position" content="50.7333;2.7333">
+    <meta name="ICBM" content="50.7333, 2.7333">
     <link rel="canonical" href="https://aia-automatisation.fr">
     <meta property="og:title" content="AIA Automatisation | Automatisation IA sur-mesure">
     <meta property="og:description" content="Gagnez 10h+ par semaine. Audit gratuit en 60 secondes.">
@@ -26,26 +32,113 @@
     <link rel="stylesheet" href="tailwind.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Schema.org -->
+    <!-- Schema.org : LocalBusiness (mieux que ProfessionalService pour SEO local) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        "@type": "LocalBusiness",
+        "@id": "https://aia-automatisation.fr/#business",
         "name": "AIA Automatisation",
-        "description": "Automatisation IA sur-mesure pour TPE et Freelances. Analyse, Implementation, Automatisation.",
+        "alternateName": "AIA",
+        "description": "Automatisation IA sur-mesure pour coachs sportifs, freelances service, agences et PME. Libère 8 à 15h/semaine d'admin invisible.",
         "url": "https://aia-automatisation.fr",
-        "founder": { "@type": "Person", "name": "Arnaud Plancke" },
-        "areaServed": { "@type": "Country", "name": "France" },
-        "serviceType": ["Automatisation", "Intelligence Artificielle", "Consulting IT"],
-        "priceRange": "$$",
+        "logo": "https://aia-automatisation.fr/aia-logo.png",
+        "image": "https://aia-automatisation.fr/og-image.png",
+        "founder": {
+            "@type": "Person",
+            "name": "Arnaud Plancke",
+            "jobTitle": "Fondateur AIA Automatisation",
+            "url": "https://www.linkedin.com/in/arnaud-plancke-aia/"
+        },
+        "areaServed": [
+            { "@type": "Country", "name": "France" },
+            { "@type": "AdministrativeArea", "name": "Hauts-de-France" },
+            { "@type": "City", "name": "Lille" }
+        ],
+        "serviceType": ["Automatisation IA", "Intelligence Artificielle", "Consulting digital", "Workflow automation", "n8n consulting"],
+        "priceRange": "€€",
         "email": "contact@aia-automatisation.fr",
+        "telephone": "+33-7-78-49-29-61",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "1442 Route du Steent'je",
             "addressLocality": "Bailleul",
             "postalCode": "59270",
+            "addressRegion": "Hauts-de-France",
             "addressCountry": "FR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 50.7333,
+            "longitude": 2.7333
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
         }
+    }
+    </script>
+
+    <!-- Schema.org : Service (pour ranks sur "automatisation pour coachs/freelances") -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": "https://aia-automatisation.fr/#service",
+        "name": "Automatisation IA sur-mesure",
+        "provider": { "@id": "https://aia-automatisation.fr/#business" },
+        "serviceType": "Automatisation business",
+        "areaServed": { "@type": "Country", "name": "France" },
+        "audience": [
+            { "@type": "BusinessAudience", "audienceType": "Coachs sportifs et bien-être" },
+            { "@type": "BusinessAudience", "audienceType": "Freelances service" },
+            { "@type": "BusinessAudience", "audienceType": "Agences et cabinets" },
+            { "@type": "BusinessAudience", "audienceType": "PME 5-50 personnes" }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Offres AIA Automatisation",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "name": "Offre Standard",
+                    "description": "Automatisation 1-2 workflows métier (squelette ≥80% réutilisable)",
+                    "price": "3000",
+                    "priceCurrency": "EUR"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Offre Confort",
+                    "description": "Orchestration multi-workflow (50-80% réutilisation)",
+                    "price": "4500-6000",
+                    "priceCurrency": "EUR"
+                }
+            ]
+        }
+    }
+    </script>
+
+    <!-- Schema.org : BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Accueil",
+                "item": "https://aia-automatisation.fr/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Calcul ROI gratuit",
+                "item": "https://aia-automatisation.fr/#simulation"
+            }
+        ]
     }
     </script>
 

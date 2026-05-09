@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factur-X 2026 : ce qui change pour les PME (et comment se préparer) | AIA Automatisation</title>
+  <meta name="description" content="Facturation électronique 2026 obligatoire : calendrier officiel, plateformes PDP, options techniques, coût réel. Le guide complet pour dirigeants de PME et freelances.">
+  <meta name="keywords" content="factur-x 2026, facturation électronique obligatoire, PDP plateforme dématérialisation, e-invoicing France, e-reporting PME, conformité facturation 2026, dématérialisation factures">
+  <meta name="author" content="Arnaud Plancke — AIA Automatisation">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://aia-automatisation.fr/blog/factur-x-2026-pme-ce-qui-change.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Factur-X 2026 : ce qui change pour les PME (et comment se préparer)">
+  <meta property="og:description" content="Calendrier officiel, plateformes PDP, options techniques, coût réel. Pour dirigeants PME.">
+  <meta property="og:url" content="https://aia-automatisation.fr/blog/factur-x-2026-pme-ce-qui-change.html">
+  <meta property="og:image" content="https://aia-automatisation.fr/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <script defer src="https://analytics.aia-automatisation.fr/script.js" data-website-id="88cbfc09-24f7-49f7-be45-c73be8b7c011"></script>
+  <link rel="stylesheet" href="../tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Factur-X 2026 : ce qui change vraiment pour les PME (et comment se préparer sans paniquer)",
+    "description": "Facturation électronique 2026 : calendrier, PDP, options techniques, coût réel pour les PME et freelances.",
+    "image": "https://aia-automatisation.fr/og-image.png",
+    "datePublished": "2026-05-09",
+    "dateModified": "2026-05-09",
+    "author": { "@type": "Person", "name": "Arnaud Plancke", "url": "https://www.linkedin.com/in/arnaud-plancke-aia/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AIA Automatisation",
+      "logo": { "@type": "ImageObject", "url": "https://aia-automatisation.fr/aia-logo.png" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://aia-automatisation.fr/blog/factur-x-2026-pme-ce-qui-change.html" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Quand la facturation électronique devient-elle obligatoire ?", "acceptedAnswer": { "@type": "Answer", "text": "Le calendrier officiel s'applique en deux phases : 1er septembre 2026 pour les grandes entreprises et ETI (réception obligatoire pour TOUS), et 1er septembre 2027 pour les PME et TPE (émission obligatoire). Toutes les entreprises doivent pouvoir RECEVOIR des factures électroniques dès septembre 2026." }},
+      { "@type": "Question", "name": "Qu'est-ce qu'une PDP (Plateforme de Dématérialisation Partenaire) ?", "acceptedAnswer": { "@type": "Answer", "text": "Une PDP est un opérateur privé immatriculé par l'État qui transmet vos factures électroniques à vos clients et à l'administration fiscale. Vous devez choisir une PDP (ou utiliser le Portail Public de Facturation gratuit), c'est obligatoire pour émettre et recevoir des factures." }},
+      { "@type": "Question", "name": "Combien coûte la mise en conformité pour une PME ?", "acceptedAnswer": { "@type": "Answer", "text": "Entre 0 € (PPF gratuit, fonctions basiques) et 200-500 €/mois pour une PDP pleine intégration ERP. La plupart des PME paient 50-150 €/mois selon le volume de factures. Coût d'intégration ERP : 1500-5000 € one-shot selon la complexité." }},
+      { "@type": "Question", "name": "Qu'est-ce que l'e-reporting et qui est concerné ?", "acceptedAnswer": { "@type": "Answer", "text": "L'e-reporting est la transmission à l'administration des données de transactions B2C, internationales, et celles non couvertes par la facturation électronique B2B. Toutes les entreprises assujetties à la TVA sont concernées dès leur entrée dans le dispositif e-invoicing." }},
+      { "@type": "Question", "name": "Mon ERP existant suffit-il ?", "acceptedAnswer": { "@type": "Answer", "text": "Les ERP majeurs (Sage, EBP, Cegid, Odoo, Dolibarr) ont tous prévu une intégration native ou via partenariat PDP. Vérifiez avec votre éditeur leur roadmap conformité 2026. La plupart proposent des modules à activer." }}
+    ]
+  }
+  </script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f5f5; line-height: 1.7; }
+    .accent { color: #fbbf24; }
+    .accent-bg { background: #fbbf24; color: #000; }
+    .card { background: #141414; border: 1px solid #262626; border-radius: 12px; }
+    article h2 { font-size: 1.875rem; font-weight: 900; margin-top: 3rem; margin-bottom: 1rem; }
+    article h3 { font-size: 1.375rem; font-weight: 800; margin-top: 2rem; margin-bottom: 0.75rem; color: #fbbf24; }
+    article p { margin-bottom: 1.25rem; color: #d4d4d4; }
+    article ul { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+    article ul li { margin-bottom: 0.5rem; color: #d4d4d4; list-style: disc; }
+    article strong { color: #ffffff; }
+    article table { width: 100%; margin: 1.5rem 0; border-collapse: collapse; }
+    article th, article td { padding: 0.75rem; border: 1px solid #262626; text-align: left; }
+    article th { background: #141414; color: #fbbf24; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="border-b border-neutral-800 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-black text-xl">AIA<span class="accent">.</span></a>
+      <a href="/#simulation?utm_source=blog&utm_campaign=article_facturx" class="accent-bg px-4 py-2 rounded-md font-bold text-sm">Audit gratuit</a>
+    </div>
+  </header>
+
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <div class="text-xs uppercase tracking-widest accent mb-4">PME · Conformité · 9 min de lecture · 2026-05-09</div>
+    <h1 class="text-4xl md:text-5xl font-black leading-tight mb-6">Factur-X 2026 : ce qui change vraiment pour les PME (et comment se préparer sans paniquer)</h1>
+    <p class="text-xl text-neutral-300 mb-12">Beaucoup de PME découvrent en 2026 qu'elles vont devoir basculer vers la facturation électronique obligatoire. Calendrier réel, options techniques, coût concret : voici ce qu'un dirigeant doit savoir pour décider <strong>maintenant</strong>, sans subir.</p>
+
+    <div class="card p-6 mb-12">
+      <strong class="accent">TL;DR</strong> — Toutes les entreprises françaises doivent pouvoir RECEVOIR des factures électroniques dès le <strong>1er septembre 2026</strong>. L'émission devient obligatoire en deux temps : grandes entreprises et ETI en septembre 2026, PME et TPE en septembre 2027. Choix critique : Portail Public de Facturation (gratuit) ou PDP (50-500 €/mois selon les services). Préparez-vous dès maintenant — la file d'attente prestataires va devenir intenable au S2 2026.
+    </div>
+
+    <h2>Le calendrier officiel (sans le bullshit)</h2>
+    <p>La réforme a été plusieurs fois repoussée. Le calendrier qui fait foi en 2026 est le suivant :</p>
+    <table>
+      <thead><tr><th>Date</th><th>Qui</th><th>Quoi</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1er septembre 2026</strong></td><td>TOUTES les entreprises</td><td>Obligation de RECEVOIR les factures électroniques</td></tr>
+        <tr><td><strong>1er septembre 2026</strong></td><td>Grandes entreprises + ETI</td><td>Obligation d'ÉMETTRE en facturation électronique</td></tr>
+        <tr><td><strong>1er septembre 2027</strong></td><td>PME et TPE</td><td>Obligation d'ÉMETTRE en facturation électronique</td></tr>
+      </tbody>
+    </table>
+    <p>Conséquence pratique : <strong>même une TPE qui n'émet pas encore obligatoirement en 2026 doit pouvoir recevoir</strong> une facture électronique de ses fournisseurs. Si vous travaillez avec un grand compte, il vous enverra ses factures via PDP dès septembre 2026. Vous devez être prêt à les réceptionner.</p>
+
+    <h2>Concrètement, qu'est-ce qui change ?</h2>
+    <p>Aujourd'hui : vous envoyez un PDF par email, ou un papier par courrier. Le client paie quand il a le temps.</p>
+    <p>Demain : la facture transite par une <strong>plateforme certifiée</strong> (PDP ou PPF). L'administration fiscale est notifiée en parallèle. Le statut de la facture (envoyée, reçue, payée) est tracé en temps réel.</p>
+    <p>Pour le dirigeant, deux changements majeurs :</p>
+    <ul>
+      <li><strong>Plus de PDF par email</strong> pour les transactions B2B couvertes. Tout passe par la plateforme.</li>
+      <li><strong>L'État voit vos transactions en quasi temps réel</strong> via l'e-reporting. Fini la déclaration TVA "consolidée" qui laissait du flou.</li>
+    </ul>
+
+    <h2>PPF ou PDP : que choisir ?</h2>
+    <h3>Le PPF (Portail Public de Facturation) — gratuit, basique</h3>
+    <p>Géré par l'État, gratuit pour toutes les entreprises. Permet d'émettre et recevoir des factures électroniques au format Factur-X (PDF + XML embarqué). Convient aux TPE qui font 1-50 factures par mois et n'ont pas d'ERP intégré.</p>
+    <p><strong>Limites</strong> : interface basique, pas d'intégration ERP avancée, pas de workflow personnalisé, pas de support dédié.</p>
+
+    <h3>Une PDP (Plateforme de Dématérialisation Partenaire) — 50-500 €/mois</h3>
+    <p>Opérateur privé immatriculé par l'État. Tarification à l'usage (volume factures) + intégration ERP + services à valeur ajoutée (relances auto, dashboards, OCR factures fournisseurs).</p>
+    <p><strong>Acteurs principaux</strong> en 2026 : Pennylane, Sellsy, Quadient, Esker, Generix, Yooz, Pagero, Tradeshift. La plupart des éditeurs ERP (Sage, EBP, Cegid, Odoo, Dolibarr) ont aussi annoncé des partenariats PDP ou leur propre PDP.</p>
+
+    <h3>Comment décider</h3>
+    <ul>
+      <li>Moins de 30 factures/mois, pas d'ERP : <strong>PPF gratuit</strong>.</li>
+      <li>30-200 factures/mois, ERP existant : <strong>PDP via votre éditeur ERP</strong> (intégration native).</li>
+      <li>200+ factures/mois, multi-pays, multi-devise : <strong>PDP indépendante</strong> (Pennylane, Sellsy ou équivalent).</li>
+    </ul>
+
+    <h2>L'e-reporting : le truc qu'on oublie souvent</h2>
+    <p>L'e-reporting est l'oublié de la communication officielle. Pourtant il s'applique à tout le monde, en parallèle de l'e-invoicing. Il concerne :</p>
+    <ul>
+      <li>Les ventes B2C (qui ne sont pas couvertes par l'e-invoicing).</li>
+      <li>Les ventes internationales (UE et hors UE).</li>
+      <li>Les acquisitions hors France (DEB/DES remplacés).</li>
+    </ul>
+    <p>Pour un commerce de détail, un coach sportif vendant en B2C, un freelance qui facture des clients européens : <strong>vous êtes concerné</strong>. Votre PDP ou votre ERP doit gérer l'e-reporting en plus de l'e-invoicing.</p>
+
+    <h2>Coût réel pour une PME de 10-30 salariés</h2>
+    <p>Sur la base des grilles tarifaires publiées par les PDP en 2026 :</p>
+    <ul>
+      <li><strong>Abonnement PDP</strong> : 50-150 €/mois pour 100-500 factures/mois.</li>
+      <li><strong>Intégration ERP</strong> : 1 500-5 000 € one-shot (configuration + tests + formation équipe).</li>
+      <li><strong>Workflows automatisés autour</strong> (relances, recouvrement, suivi paiement) : 2 000-6 000 € one-shot si fait par un prestataire automatisation.</li>
+    </ul>
+    <p>Total raisonnable première année pour une PME : <strong>5 000 à 12 000 € one-shot + 600-1 800 €/an</strong> en abonnement PDP.</p>
+
+    <h2>L'erreur à ne pas faire</h2>
+    <p>Attendre août 2026 pour s'y mettre. La file d'attente chez les PDP et les intégrateurs ERP va devenir intenable. Les délais d'intégration passeront de 2-4 semaines (situation actuelle) à 8-12 semaines.</p>
+    <p>La bonne fenêtre pour agir : <strong>juin-octobre 2026</strong>. Vous avez le temps de tester, de former l'équipe, de basculer en douceur.</p>
+
+    <h2>Ce que l'automatisation change vraiment</h2>
+    <p>La conformité, c'est le minimum syndical. Mais la facturation électronique ouvre une opportunité : <strong>automatiser tout le cycle facturation-recouvrement</strong> autour de la PDP.</p>
+    <ul>
+      <li><strong>Génération automatique</strong> de la facture à la livraison du dossier.</li>
+      <li><strong>Envoi via PDP</strong> en un clic, statut tracé.</li>
+      <li><strong>Relances échelonnées</strong> auto (J+15, J+30, J+45) basées sur le statut PDP.</li>
+      <li><strong>Tableau de bord</strong> temps réel : encours, retards, prévisions trésorerie.</li>
+    </ul>
+    <p>Une PME qui pose ces briques en même temps que la PDP gagne 10-15h/semaine équipe ADV/compta, et raccourcit son DSO de 15-20 jours.</p>
+
+    <h2>Questions fréquentes</h2>
+    <div class="space-y-4 mt-6">
+      <details class="card p-5"><summary class="font-bold cursor-pointer">Quand la facturation électronique devient-elle obligatoire ?</summary><p class="mt-3 text-neutral-400">Réception obligatoire pour TOUTES les entreprises au 1er septembre 2026. Émission : grandes entreprises et ETI en septembre 2026, PME et TPE en septembre 2027.</p></details>
+      <details class="card p-5"><summary class="font-bold cursor-pointer">Qu'est-ce qu'une PDP ?</summary><p class="mt-3 text-neutral-400">Une Plateforme de Dématérialisation Partenaire est un opérateur privé immatriculé par l'État qui transmet vos factures électroniques à vos clients et à l'administration fiscale.</p></details>
+      <details class="card p-5"><summary class="font-bold cursor-pointer">Combien coûte la mise en conformité pour une PME ?</summary><p class="mt-3 text-neutral-400">Entre 0 € (PPF gratuit) et 200-500 €/mois pour une PDP pleine. La plupart des PME paient 50-150 €/mois. Intégration ERP : 1500-5000 € one-shot.</p></details>
+      <details class="card p-5"><summary class="font-bold cursor-pointer">Qu'est-ce que l'e-reporting et qui est concerné ?</summary><p class="mt-3 text-neutral-400">Transmission à l'administration des données de transactions B2C, internationales, et non couvertes par l'e-invoicing B2B. Toutes les entreprises assujetties à la TVA sont concernées.</p></details>
+      <details class="card p-5"><summary class="font-bold cursor-pointer">Mon ERP existant suffit-il ?</summary><p class="mt-3 text-neutral-400">Sage, EBP, Cegid, Odoo, Dolibarr ont tous prévu une intégration. Vérifiez avec votre éditeur. La plupart proposent des modules à activer.</p></details>
+    </div>
+
+    <div class="card p-8 mt-12 text-center">
+      <h2 class="text-2xl font-black mb-3">Audit conformité + automatisation gratuit</h2>
+      <p class="text-neutral-400 mb-6">90 secondes en ligne. Vous repartez avec un plan d'action concret pour septembre 2026.</p>
+      <a href="/#simulation?utm_source=blog&utm_campaign=article_facturx_cta&pf=A" class="accent-bg px-8 py-4 rounded-lg font-bold inline-block">Démarre l'audit gratuit →</a>
+    </div>
+  </article>
+
+  <footer class="border-t border-neutral-800 mt-20 px-6 py-10 text-center text-sm text-neutral-500">
+    <div>AIA Automatisation · Bailleul (Hauts-de-France) · <a href="mailto:contact@aia-automatisation.fr" class="hover:text-white">contact@aia-automatisation.fr</a></div>
+    <div class="mt-2"><a href="/blog/" class="hover:text-white">← Retour au blog</a></div>
+  </footer>
+</body>
+</html>
